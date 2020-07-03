@@ -42,65 +42,65 @@ class TestProperties(unittest.TestCase):
         p1 = makeTDInstance()
         p1.a
 
-        self.assert_(p1.a.isDangling())
+        self.assertTrue(p1.a.isDangling())
 
     def testIsDangling_02(self):
         p1 = makeTDInstance()
         p1.a.b
 
-        self.assert_(p1.a.isDangling())
+        self.assertTrue(p1.a.isDangling())
         
     def testIsDangling_03(self):
         p1 = makeTDInstance()
         p1.a.b = 1
 
-        self.assert_(not p1.a.isDangling())
+        self.assertTrue(not p1.a.isDangling())
 
     def testIsDangling_04(self):
         p1 = sample_tree()
         p1.a
 
-        self.assert_(p1.a.isDangling())
+        self.assertTrue(p1.a.isDangling())
 
     def testIsDangling_05(self):
         p1 = sample_tree()
         p1.a.b
 
-        self.assert_(p1.a.isDangling())
+        self.assertTrue(p1.a.isDangling())
 
     def testIsDangling_05b(self):
         p1 = sample_tree()
         p1.a
         p1.a.b
 
-        self.assert_(p1.a.isDangling())
+        self.assertTrue(p1.a.isDangling())
         
     def testIsDangling_06(self):
         p1 = sample_tree()
         p1.a.b = 1
 
-        self.assert_(not p1.a.isDangling())
+        self.assertTrue(not p1.a.isDangling())
 
     def testisEmpty_01(self):
         p = makeTDInstance('emptytest')
-        self.assert_(p.isEmpty())
+        self.assertTrue(p.isEmpty())
 
     def testisEmpty_02(self):
         p = makeTDInstance('emptytest')
         p.a.b = 2
-        self.assert_(not p.isEmpty())
-        self.assert_(not p.a.isEmpty())
+        self.assertTrue(not p.isEmpty())
+        self.assertTrue(not p.a.isEmpty())
         
     def testisEmpty_03_key_deletion(self):
         p = makeTDInstance('emptytest')
         p.a = 2
         del p.a
-        self.assert_(p.isEmpty())
+        self.assertTrue(p.isEmpty())
 
     def testisEmpty_04_dangling_nodes(self):
         p = makeTDInstance()
         p.a
-        self.assert_(p.isEmpty())
+        self.assertTrue(p.isEmpty())
 
 
     def testMutability_01(self):
@@ -111,11 +111,11 @@ class TestProperties(unittest.TestCase):
         p1.c.a = 145
         p1.c.b = "1231321321231321"
 
-        self.assert_(p1.isMutable())
+        self.assertTrue(p1.isMutable())
 
         p1.freeze()
 
-        self.assert_(not p1.isMutable())
+        self.assertTrue(not p1.isMutable())
 
         
     def testMutability_02(self):
@@ -127,11 +127,11 @@ class TestProperties(unittest.TestCase):
         p1.c.b = "1231321321231321"
         p1.c.c = {}
 
-        self.assert_(p1.isMutable())
+        self.assertTrue(p1.isMutable())
 
         p1.freeze()
 
-        self.assert_(p1.isMutable())
+        self.assertTrue(p1.isMutable())
         
     def testMutability_03(self):
         # Makes sure that stored branches are handled correctly
@@ -149,15 +149,15 @@ class TestProperties(unittest.TestCase):
 
         p1.node = p2
 
-        self.assert_(p1.isMutable())
+        self.assertTrue(p1.isMutable())
 
         p1.freeze()
         
-        self.assert_(p1.isMutable())
+        self.assertTrue(p1.isMutable())
 
         p2.freeze()
         
-        self.assert_(not p1.isMutable())
+        self.assertTrue(not p1.isMutable())
         
     def testFreezingValues_01(self):
         p1 = makeTDInstance('root')
@@ -173,7 +173,7 @@ class TestProperties(unittest.TestCase):
 
         p1.freeze("c", quiet=False)
 
-        self.assert_(p1.c.isFrozen())
+        self.assertTrue(p1.c.isFrozen())
 
     def testFreezingStructure_01(self):
         p = makeTDInstance()
@@ -184,7 +184,7 @@ class TestProperties(unittest.TestCase):
 
         p.a = 2
 
-        self.assert_(p.a == 2)
+        self.assertTrue(p.a == 2)
         self.assertRaises(TypeError, lambda: p.set('b',1))
 
 
@@ -196,20 +196,20 @@ class TestProperties(unittest.TestCase):
     def testSize_01_empty(self):
         p = makeTDInstance()
 
-        self.assert_(len(p) == 0, len(p))
-        self.assert_(p.size() == 0, p.size())
-        self.assert_(p.size(recursive = False) == 0)
-        self.assert_(p.size(recursive = False, branch_mode = "all") == 0)
-        self.assert_(p.size(recursive = False, branch_mode = "only") == 0)
+        self.assertTrue(len(p) == 0, len(p))
+        self.assertTrue(p.size() == 0, p.size())
+        self.assertTrue(p.size(recursive = False) == 0)
+        self.assertTrue(p.size(recursive = False, branch_mode = "all") == 0)
+        self.assertTrue(p.size(recursive = False, branch_mode = "only") == 0)
         
     def testSize_02_dangling(self):
         p = makeTDInstance()
         p.a
-        self.assert_(len(p) == 0)
-        self.assert_(p.size() == 0)
-        self.assert_(p.size(recursive = False) == 0)
-        self.assert_(p.size(recursive = False, branch_mode = "all") == 0)
-        self.assert_(p.size(recursive = False, branch_mode = "only") == 0)
+        self.assertTrue(len(p) == 0)
+        self.assertTrue(p.size() == 0)
+        self.assertTrue(p.size(recursive = False) == 0)
+        self.assertTrue(p.size(recursive = False, branch_mode = "all") == 0)
+        self.assertTrue(p.size(recursive = False, branch_mode = "only") == 0)
         
 
     def testSize_03_dangling(self):
@@ -218,41 +218,41 @@ class TestProperties(unittest.TestCase):
         p.makeBranch("a")
         p.a.b
 
-        self.assert_(len(p) == 0)
-        self.assert_(p.size() == 0)
-        self.assert_(p.size(recursive = False) == 0)
-        self.assert_(p.size(recursive = False, branch_mode = "only") == 1)
-        self.assert_(p.size(recursive = False, branch_mode = "all") == 1)
+        self.assertTrue(len(p) == 0)
+        self.assertTrue(p.size() == 0)
+        self.assertTrue(p.size(recursive = False) == 0)
+        self.assertTrue(p.size(recursive = False, branch_mode = "only") == 1)
+        self.assertTrue(p.size(recursive = False, branch_mode = "all") == 1)
 
     def testSize_03b_dangling(self):
         p = makeTDInstance()
         p.a.b
-        self.assert_(len(p) == 0)
-        self.assert_(p.size() == 0)
-        self.assert_(p.size(recursive = False) == 0)
-        self.assert_(p.size(recursive = False, branch_mode = "all") == 0)
-        self.assert_(p.size(recursive = False, branch_mode = "only") == 0)
+        self.assertTrue(len(p) == 0)
+        self.assertTrue(p.size() == 0)
+        self.assertTrue(p.size(recursive = False) == 0)
+        self.assertTrue(p.size(recursive = False, branch_mode = "all") == 0)
+        self.assertTrue(p.size(recursive = False, branch_mode = "only") == 0)
     
     def testSize_04_dangling(self):
         p = makeTDInstance()
         p.a.v = 1
         p.a.b
-        self.assert_(len(p) == 1)
-        self.assert_(p.size() == 1)
-        self.assert_(p.size(recursive = False) == 0)
-        self.assert_(p.size(recursive = False, branch_mode = "all") == 1)
-        self.assert_(p.size(recursive = False, branch_mode = "only") == 1)
+        self.assertTrue(len(p) == 1)
+        self.assertTrue(p.size() == 1)
+        self.assertTrue(p.size(recursive = False) == 0)
+        self.assertTrue(p.size(recursive = False, branch_mode = "all") == 1)
+        self.assertTrue(p.size(recursive = False, branch_mode = "only") == 1)
 
     def testSize_05_dangling(self):
         p = makeTDInstance()
         p.a.b.c.d.e
         p.a.b.c = 1
 
-        self.assert_(len(p) == 1)
-        self.assert_(p.size() == 1)
-        self.assert_(p.size(recursive = False) == 0)
-        self.assert_(p.size(recursive = False, branch_mode = "all") == 1)
-        self.assert_(p.size(recursive = False, branch_mode = "only") == 1)
+        self.assertTrue(len(p) == 1)
+        self.assertTrue(p.size() == 1)
+        self.assertTrue(p.size(recursive = False) == 0)
+        self.assertTrue(p.size(recursive = False, branch_mode = "all") == 1)
+        self.assertTrue(p.size(recursive = False, branch_mode = "only") == 1)
 
     def testSize_06(self):
         p = makeTDInstance()
@@ -261,11 +261,11 @@ class TestProperties(unittest.TestCase):
         p.b.c = 2
         p.b.d = 3
 
-        self.assert_(len(p) == 3)
-        self.assert_(p.size() == 3)
-        self.assert_(p.size(recursive = False) == 1)
-        self.assert_(p.size(recursive = False, branch_mode = "all") == 2)
-        self.assert_(p.size(recursive = False, branch_mode = "only") == 1)
+        self.assertTrue(len(p) == 3)
+        self.assertTrue(p.size() == 3)
+        self.assertTrue(p.size(recursive = False) == 1)
+        self.assertTrue(p.size(recursive = False, branch_mode = "all") == 2)
+        self.assertTrue(p.size(recursive = False, branch_mode = "only") == 1)
 
     def testSize_07_large_recursive(self):
         n = 500
@@ -279,13 +279,13 @@ class TestProperties(unittest.TestCase):
         n_root_leaves = len([k for k in kl if '.' not in k])
 
         self.assertEqual(len(p), n)
-        self.assert_(p.size() == n)
-        self.assert_(p.size(recursive = False) == n_root_leaves)
-        self.assert_(p.size(recursive = False, branch_mode = "all") == n)
-        self.assert_(p.size(recursive = False, branch_mode = "only") == n - n_root_leaves)
+        self.assertTrue(p.size() == n)
+        self.assertTrue(p.size(recursive = False) == n_root_leaves)
+        self.assertTrue(p.size(recursive = False, branch_mode = "all") == n)
+        self.assertTrue(p.size(recursive = False, branch_mode = "only") == n - n_root_leaves)
 
     def _checkAllSize(self, p, test, rid):
-        self.assert_(p.size(*test) == len(rid[test]))
+        self.assertTrue(p.size(*test) == len(rid[test]))
 
     def testSize_08_basic_walking_test__rn(self):
 

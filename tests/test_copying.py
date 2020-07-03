@@ -47,8 +47,8 @@ class TestCopying(unittest.TestCase):
 
         p2 = copy(p1)
 
-        self.assert_(p1 == p2)
-        self.assert_(p1.hash() == p2.hash())
+        self.assertTrue(p1 == p2)
+        self.assertTrue(p1.hash() == p2.hash())
         
     def testCopying_01d(self):
         p1 = makeTDInstance('root')
@@ -56,8 +56,8 @@ class TestCopying(unittest.TestCase):
 
         p2 = deepcopy(p1)
 
-        self.assert_(p1 == p2)
-        self.assert_(p1.hash() == p2.hash())
+        self.assertTrue(p1 == p2)
+        self.assertTrue(p1.hash() == p2.hash())
 
     def testCopying_02_dangling(self):
         p1 = makeTDInstance('root')
@@ -65,8 +65,8 @@ class TestCopying(unittest.TestCase):
 
         p2 = copy(p1)
 
-        self.assert_(p1 == p2)
-        self.assert_(p1.hash() == p2.hash())
+        self.assertTrue(p1 == p2)
+        self.assertTrue(p1.hash() == p2.hash())
 
     def testCopying_02d_dangling(self):
         p1 = makeTDInstance('root')
@@ -74,8 +74,8 @@ class TestCopying(unittest.TestCase):
 
         p2 = deepcopy(p1)
 
-        self.assert_(p1 == p2)
-        self.assert_(p1.hash() == p2.hash())
+        self.assertTrue(p1 == p2)
+        self.assertTrue(p1.hash() == p2.hash())
 
     def testCopying_03_Dangling_AttributeError(self):
         
@@ -98,7 +98,7 @@ class TestCopying(unittest.TestCase):
 
         # Make sure it propegates up so the error message is sent from
         # the root dangling node.
-        self.assert_('aduvulksjucmfiddkjdo' in ae_msg)
+        self.assertTrue('aduvulksjucmfiddkjdo' in ae_msg)
 
 
     def testCopying_05(self):
@@ -106,9 +106,9 @@ class TestCopying(unittest.TestCase):
         p = makeTDInstance('root')
         b = p.makeBranch('b').copy()
 
-        self.assert_(p.b.branchName() == 'b', p.b.branchName())
-        self.assert_(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
-        self.assert_(p.b.branchName(add_path = True, add_tree_name = True) == 'root.b',
+        self.assertTrue(p.b.branchName() == 'b', p.b.branchName())
+        self.assertTrue(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
+        self.assertTrue(p.b.branchName(add_path = True, add_tree_name = True) == 'root.b',
                      p.b.branchName(add_path = True, add_tree_name = True))
 
     def testCopying_05b(self):
@@ -116,9 +116,9 @@ class TestCopying(unittest.TestCase):
         p = makeTDInstance('root')
         b = copy(p.makeBranch('b'))
 
-        self.assert_(p.b.branchName() == 'b', p.b.branchName())
-        self.assert_(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
-        self.assert_(p.b.branchName(add_path = True, add_tree_name = True) == 'root.b',
+        self.assertTrue(p.b.branchName() == 'b', p.b.branchName())
+        self.assertTrue(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
+        self.assertTrue(p.b.branchName(add_path = True, add_tree_name = True) == 'root.b',
                      p.b.branchName(add_path = True, add_tree_name = True))
 
     def testCopying_05c(self):
@@ -126,9 +126,9 @@ class TestCopying(unittest.TestCase):
         p = makeTDInstance('root')
         b = deepcopy(p.makeBranch('b'))
 
-        self.assert_(p.b.branchName() == 'b', p.b.branchName())
-        self.assert_(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
-        self.assert_(p.b.branchName(add_path = True, add_tree_name = True) == 'root.b',
+        self.assertTrue(p.b.branchName() == 'b', p.b.branchName())
+        self.assertTrue(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
+        self.assertTrue(p.b.branchName(add_path = True, add_tree_name = True) == 'root.b',
                      p.b.branchName(add_path = True, add_tree_name = True))
 
     def testCopying_05b_central_system(self):
@@ -140,8 +140,8 @@ class TestCopying(unittest.TestCase):
         p = getTree('tc_root')
         b = p.makeBranch('b').copy()
     
-        self.assert_(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
-        self.assert_(p.b.branchName(add_path = True, add_tree_name = True) == 'tc_root.b',
+        self.assertTrue(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
+        self.assertTrue(p.b.branchName(add_path = True, add_tree_name = True) == 'tc_root.b',
                      p.b.branchName(add_path = True, add_tree_name = True))
 
     def testCopying_05b_central_system(self):
@@ -153,8 +153,8 @@ class TestCopying(unittest.TestCase):
         p = getTree('tc_root')
         b = p.makeBranch('b').copy()
     
-        self.assert_(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
-        self.assert_(p.b.branchName(add_path = True, add_tree_name = True) == 'tc_root.b',
+        self.assertTrue(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
+        self.assertTrue(p.b.branchName(add_path = True, add_tree_name = True) == 'tc_root.b',
                      p.b.branchName(add_path = True, add_tree_name = True))
 
     def testCopying_05b_central_system(self):
@@ -166,8 +166,8 @@ class TestCopying(unittest.TestCase):
         p = getTree('tc_root')
         b = p.makeBranch('b').copy()
     
-        self.assert_(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
-        self.assert_(p.b.branchName(add_path = True, add_tree_name = True) == 'tc_root.b',
+        self.assertTrue(b.branchName(add_tree_name = True) == 'b', b.branchName(add_tree_name = True))
+        self.assertTrue(p.b.branchName(add_path = True, add_tree_name = True) == 'tc_root.b',
                      p.b.branchName(add_path = True, add_tree_name = True))
 
     def testCopying_06_setting_linked_branch_02_copy(self):
@@ -181,8 +181,8 @@ class TestCopying(unittest.TestCase):
 
         p2.defs.a1.v = 2
 
-        self.assert_(p.a.v == 1)
-        self.assert_(p2.a.v == 2)
+        self.assertTrue(p.a.v == 1)
+        self.assertTrue(p2.a.v == 2)
 
     def testCopying_06_setting_linked_branch_04_deepcopy_func(self):
         p = makeTDInstance()
@@ -195,8 +195,8 @@ class TestCopying(unittest.TestCase):
 
         p2.defs.a1.v = 2
 
-        self.assert_(p.a.v == 1)
-        self.assert_(p2.a.v == 2)
+        self.assertTrue(p.a.v == 1)
+        self.assertTrue(p2.a.v == 2)
 
     def testCopying_07_unfrozen(self):
         p = makeTDInstance()
@@ -207,21 +207,21 @@ class TestCopying(unittest.TestCase):
 
         p.freeze()
 
-        self.assert_(p.isFrozen())
-        self.assert_(p.b.isFrozen())
-        self.assert_(p.b.c.isFrozen())
+        self.assertTrue(p.isFrozen())
+        self.assertTrue(p.b.isFrozen())
+        self.assertTrue(p.b.c.isFrozen())
 
         p2 = p.copy()
 
-        self.assert_(not p2.isFrozen())
-        self.assert_(not p2.b.isFrozen())
-        self.assert_(not p2.b.c.isFrozen())
+        self.assertTrue(not p2.isFrozen())
+        self.assertTrue(not p2.b.isFrozen())
+        self.assertTrue(not p2.b.c.isFrozen())
         
         p3 = copy(p)
         
-        self.assert_(not p3.isFrozen())
-        self.assert_(not p3.b.isFrozen())
-        self.assert_(not p3.b.c.isFrozen())
+        self.assertTrue(not p3.isFrozen())
+        self.assertTrue(not p3.b.isFrozen())
+        self.assertTrue(not p3.b.c.isFrozen())
 
     def testCopying_07a_Regression(self):
 
@@ -239,8 +239,8 @@ class TestCopying(unittest.TestCase):
 
         p3 = copy(p)
         
-        self.assert_(p == p2)
-        self.assert_(p == p3)
+        self.assertTrue(p == p2)
+        self.assertTrue(p == p3)
 
     def testCopying_07a_Regression_mutability_count_test(self):
         
@@ -252,8 +252,8 @@ class TestCopying(unittest.TestCase):
 
         p2 = copy(p)
 
-        self.assert_(p._numMutable() == p2._numMutable())
-        self.assert_(p.a._numMutable() == p2.a._numMutable())
+        self.assertTrue(p._numMutable() == p2._numMutable())
+        self.assertTrue(p.a._numMutable() == p2.a._numMutable())
 
     def testCopying_07b_Regression_empty_branches(self):
 
@@ -262,10 +262,10 @@ class TestCopying(unittest.TestCase):
 
         p2 = copy(p)
        
-        self.assert_(p.a == p2.a)
-        self.assert_(p.a.parentNode() is p)
-        self.assert_(p2.a.parentNode() is p2)
-        self.assert_(p.a is not p2.a)
+        self.assertTrue(p.a == p2.a)
+        self.assertTrue(p.a.parentNode() is p)
+        self.assertTrue(p2.a.parentNode() is p2)
+        self.assertTrue(p.a is not p2.a)
 
     def testCopying_08_makeTDInstanceValues(self):
 
@@ -275,9 +275,9 @@ class TestCopying(unittest.TestCase):
 
         q = p.copy()
 
-        self.assert_(p == q)
-        self.assert_(p.a is not q.a)
-        self.assert_(ab is q.a.b)
+        self.assertTrue(p == q)
+        self.assertTrue(p.a is not q.a)
+        self.assertTrue(ab is q.a.b)
 
     def testCopying_09_LinkedValuesPreserved(self):
 
@@ -287,8 +287,8 @@ class TestCopying(unittest.TestCase):
 
         q = p.copy()
 
-        self.assert_(p.a is not q.a)
-        self.assert_(q.al is q.a)
+        self.assertTrue(p.a is not q.a)
+        self.assertTrue(q.al is q.a)
         
     def testCopying_09_LinkedValuesPreserved(self):
 
@@ -298,8 +298,8 @@ class TestCopying(unittest.TestCase):
 
         q = p.copy()
 
-        self.assert_(p.a is not q.a)
-        self.assert_(q.b is q.a)
+        self.assertTrue(p.a is not q.a)
+        self.assertTrue(q.b is q.a)
 
     def testCopying_09_LinkedValuesPreserved_Reversed(self):
 
@@ -309,8 +309,8 @@ class TestCopying(unittest.TestCase):
 
         q = p.copy()
 
-        self.assert_(p.b is not q.b)
-        self.assert_(q.b is q.a)
+        self.assertTrue(p.b is not q.b)
+        self.assertTrue(q.b is q.a)
 
     def testCopying_09_LinkedValuesPreserved(self):
 
@@ -320,8 +320,8 @@ class TestCopying(unittest.TestCase):
 
         q = p.copy()
 
-        self.assert_(p.a is not q.a)
-        self.assert_(q.b is q.a)
+        self.assertTrue(p.a is not q.a)
+        self.assertTrue(q.b is q.a)
 
     def testCopying_10_Cousins(self):
 
@@ -331,9 +331,9 @@ class TestCopying(unittest.TestCase):
 
         q = p.copy()
 
-        self.assert_(p.a is not q.a)
-        self.assert_(p.a.c is not q.a.c)
-        self.assert_(q.b.c is q.a.c)
+        self.assertTrue(p.a is not q.a)
+        self.assertTrue(p.a.c is not q.a.c)
+        self.assertTrue(q.b.c is q.a.c)
 
     def testCopying_10_Cousins_subcopy(self):
 
@@ -344,9 +344,9 @@ class TestCopying(unittest.TestCase):
 
         qb = p.b.copy()
 
-        self.assert_(qb.c.rootNode() is p)
-        self.assert_(qb.d.rootNode() is qb)
-        self.assert_(qb.d.x == 1)
+        self.assertTrue(qb.c.rootNode() is p)
+        self.assertTrue(qb.d.rootNode() is qb)
+        self.assertTrue(qb.d.x == 1)
 
     def testCopying_11_Cousins_multiple_copy(self):
         p = random_selflinked_tree(0, 4)
@@ -361,7 +361,7 @@ class TestCopying(unittest.TestCase):
         # print "\nq = "
         # print q.makeReport()
 
-        self.assert_(q == p)
+        self.assertTrue(q == p)
 
     def testCopying_12_Large_straight(self):
         p = random_selflinked_tree(0, 100)
@@ -375,10 +375,10 @@ class TestCopying(unittest.TestCase):
                 pbn = p[k].branchName(add_path = True)
                 qbn = q[k].branchName(add_path = True)
 
-                self.assert_(pbn == qbn, "qbn = %s != %s = pbn" % (qbn, pbn))
+                self.assertTrue(pbn == qbn, "qbn = %s != %s = pbn" % (qbn, pbn))
 
-                self.assert_(p[k] is not q[k])
-                self.assert_(p[k] == q[k])
+                self.assertTrue(p[k] is not q[k])
+                self.assertTrue(p[k] == q[k])
 
     def testCopying_13_Large_interwoven(self):
         p = random_selflinked_tree(0, 100)
@@ -403,11 +403,11 @@ class TestCopying(unittest.TestCase):
                     qbn = q[k].branchName(add_path = True)
 
                     if q[k].rootNode() is not q:
-                        self.assert_(q[k].rootNode() is p)
-                        self.assert_(q[k] is v)
+                        self.assertTrue(q[k].rootNode() is p)
+                        self.assertTrue(q[k] is v)
                     else:
-                        self.assert_(v is not q[k])
-                        self.assert_(pbn == bk + '.' + qbn, "pbn='%s' != '%s' = bk+qbn" % (pbn, bk+'.' + qbn))
+                        self.assertTrue(v is not q[k])
+                        self.assertTrue(pbn == bk + '.' + qbn, "pbn='%s' != '%s' = bk+qbn" % (pbn, bk+'.' + qbn))
 
     # Also need tests covering cases where flags are cleared on copied
     # nodes

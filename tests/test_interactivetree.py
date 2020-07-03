@@ -27,10 +27,7 @@
 
 
 import random, unittest, collections
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import pickle
 from treedict import TreeDict, getTree
 import treedict
 from copy import deepcopy, copy
@@ -51,12 +48,12 @@ class TestInteractivemakeTDInstance(unittest.TestCase):
         v = ("borkborkbork", 123)
         p.a.b.c = v
 
-        self.assert_(p.interactiveTree().a.b.c is v)
+        self.assertTrue(p.interactiveTree().a.b.c is v)
         
     def testInteractiveTree_03(self):
         p = sample_tree()
 
-        self.assert_(p.interactiveTree().treeDict() is p)
+        self.assertTrue(p.interactiveTree().treeDict() is p)
 
     def testInteractiveTree_04_pickling(self):
         p = sample_tree()
@@ -64,8 +61,8 @@ class TestInteractivemakeTDInstance(unittest.TestCase):
         s = pickle.dumps(p.interactiveTree(), protocol=0)
         ipt = pickle.loads(s)
 
-        self.assert_(ipt.treeDict() == p)
-        self.assert_(p.interactiveTree() == ipt)
+        self.assertTrue(ipt.treeDict() == p)
+        self.assertTrue(p.interactiveTree() == ipt)
 
     def testInteractiveTree_05_setattr(self):
         p = sample_tree()
@@ -77,13 +74,13 @@ class TestInteractivemakeTDInstance(unittest.TestCase):
         
         pi = p.interactiveTree()
         
-        self.assert_(p.a.b.c is v1)
-        self.assert_(pi.a.b.c is v1)
+        self.assertTrue(p.a.b.c is v1)
+        self.assertTrue(pi.a.b.c is v1)
 
         pi.a.b.c = v2
         
-        self.assert_(p.a.b.c is v2)
-        self.assert_(pi.a.b.c is v2)
+        self.assertTrue(p.a.b.c is v2)
+        self.assertTrue(pi.a.b.c is v2)
     
 
 if __name__ == '__main__':

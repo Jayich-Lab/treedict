@@ -48,36 +48,36 @@ class TestSetting(unittest.TestCase):
 
         p.set("aabsd", 123)
 
-        self.assert_(p.aabsd == 123)
+        self.assertTrue(p.aabsd == 123)
 
     def testSetGet02(self):
         p = sample_tree()
         p.a = 123
 
-        self.assert_(p.get("a") == 123)
+        self.assertTrue(p.get("a") == 123)
 
     def testSetGet03(self):
         p = makeTDInstance()
         p.a.b.c.d.e.f = 1
-        self.assert_(p.get("a.b.c.d.e.f") == 1)
+        self.assertTrue(p.get("a.b.c.d.e.f") == 1)
 
     def testSetGet04(self):
         p = sample_tree()
         p.set("b.c", 123)
 
-        self.assert_(p.get("b.c") == 123)
+        self.assertTrue(p.get("b.c") == 123)
 
     def testSetGet04b(self):
         p = sample_tree()
         p.makeBranch("b")
         p.set("b.c", 123)
 
-        self.assert_(p.get("b.c") == 123)
+        self.assertTrue(p.get("b.c") == 123)
 
     def testSetGet05(self):
         p = getTree('a_s3kkdf93kd9k3ikdkmd') # unique
         p.a.b.c.d.e.f = 1
-        self.assert_(p.get("a.b.c.d.e.f") == 1)
+        self.assertTrue(p.get("a.b.c.d.e.f") == 1)
 
     def testSetGet06(self):
 
@@ -87,22 +87,22 @@ class TestSetting(unittest.TestCase):
         q = p.a18462.copy()
         q.a1732643.a1232 = "borkbork"  # should be bad
 
-        self.assert_(p.a18462.a1732643.x == 1)
-        self.assert_(q.a1732643.a1232 == "borkbork")
-        self.assert_(q.a1732643.x == 1)
+        self.assertTrue(p.a18462.a1732643.x == 1)
+        self.assertTrue(q.a1732643.a1232 == "borkbork")
+        self.assertTrue(q.a1732643.x == 1)
 
     def testSetGet07(self):
 
         # Regression
         p = getTree('upt_08_bcg2_whodunit_')
-        self.assert_(not p.isFrozen())
+        self.assertTrue(not p.isFrozen())
         p.a18462.a1732643.x = 1
         q = p.a18462.a1732643.copy()
         q.a1232 = "borkbork"
 
-        self.assert_(p.a18462.a1732643.x == 1)
-        self.assert_(q.a1232 == "borkbork")
-        self.assert_(q.x == 1)
+        self.assertTrue(p.a18462.a1732643.x == 1)
+        self.assertTrue(q.a1232 == "borkbork")
+        self.assertTrue(q.x == 1)
 
 
     ############################################################
@@ -113,7 +113,7 @@ class TestSetting(unittest.TestCase):
         v1 = (1,2,3)
 
         p.set("a.b", v1)
-        self.assert_(p.a.b is v1)
+        self.assertTrue(p.a.b is v1)
 
     def testSet_02(self):
         p = sample_tree()
@@ -121,8 +121,8 @@ class TestSetting(unittest.TestCase):
         v2 = (3,2,1)
 
         p.set("a.b", v1, "a.c", v2)
-        self.assert_(p.a.b is v1)
-        self.assert_(p.a.c is v2)
+        self.assertTrue(p.a.b is v1)
+        self.assertTrue(p.a.c is v2)
 
     def testSet_03_SetOrder(self):
         p = sample_tree()
@@ -130,7 +130,7 @@ class TestSetting(unittest.TestCase):
         v2 = (3,2,1)
 
         p.set("a.b", v1, "a.b", v2)
-        self.assert_(p.a.b is v2)
+        self.assertTrue(p.a.b is v2)
 
     def testSet_04_mixKWargs(self):
         p = sample_tree()
@@ -139,8 +139,8 @@ class TestSetting(unittest.TestCase):
 
         p.set("a.b", v1, **{"b" : v2})
 
-        self.assert_(p.a.b is v1)
-        self.assert_(p.b is v2)
+        self.assertTrue(p.a.b is v1)
+        self.assertTrue(p.b is v2)
 
     def testSet_05_kwargs(self):
         p = sample_tree()
@@ -149,8 +149,8 @@ class TestSetting(unittest.TestCase):
 
         p.set(**{"a" : v1, "b" : v2})
 
-        self.assert_(p.a is v1)
-        self.assert_(p.b is v2)
+        self.assertTrue(p.a is v1)
+        self.assertTrue(p.b is v2)
 
     def testSet_05b_kwargs(self):
         p = sample_tree()
@@ -159,8 +159,8 @@ class TestSetting(unittest.TestCase):
 
         p.set(a = v1, b = v2)
 
-        self.assert_(p.a is v1)
-        self.assert_(p.b is v2)
+        self.assertTrue(p.a is v1)
+        self.assertTrue(p.b is v2)
 
     def testSet_06_kwargs_large_dict(self):
         d = {}
@@ -173,7 +173,7 @@ class TestSetting(unittest.TestCase):
         p.set(**d)
 
         for i in range(10000):
-            self.assert_(p["a%d" % i] == i)
+            self.assertTrue(p["a%d" % i] == i)
 
     def testSet_07_kwargs_precedence(self):
         p = sample_tree()
@@ -183,7 +183,7 @@ class TestSetting(unittest.TestCase):
         p.set("a", v1, a = v2)
 
         # Keyword arguments
-        self.assert_(p.a is v2)
+        self.assertTrue(p.a is v2)
 
     def testSet_08_validation_first(self):
         p = sample_tree()
@@ -194,7 +194,7 @@ class TestSetting(unittest.TestCase):
         except Exception:
             pass
 
-        self.assert_("a" not in p)
+        self.assertTrue("a" not in p)
 
     def testSet_09_validation_first(self):
         p = sample_tree()
@@ -208,7 +208,7 @@ class TestSetting(unittest.TestCase):
         except Exception:
             pass
 
-        self.assert_(p.a is v1)
+        self.assertTrue(p.a is v1)
 
     def testSet_10_validation_first(self):
         p = makeTDInstance()
@@ -224,8 +224,8 @@ class TestSetting(unittest.TestCase):
         except Exception:
             pass
 
-        self.assert_(p.a is v1)
-        self.assert_(p1 == p)
+        self.assertTrue(p.a is v1)
+        self.assertTrue(p1 == p)
 
     def testSet_11_validation_first(self):
         d = {}
@@ -239,7 +239,7 @@ class TestSetting(unittest.TestCase):
 
         p1 = deepcopy(p)
 
-        self.assert_(p1 == p)
+        self.assertTrue(p1 == p)
 
     def testSet_12_bad_args(self):
         p = sample_tree()
@@ -272,7 +272,7 @@ class TestSetting(unittest.TestCase):
 
         p.set("a.b.c", 1, protect_values=False)
 
-        self.assert_(p.a.b.c == 1)
+        self.assertTrue(p.a.b.c == 1)
 
     def testSet_19_overwriting_value_with_branch_02_nochange_on_bad(self):
         p = makeTDInstance()
@@ -283,8 +283,8 @@ class TestSetting(unittest.TestCase):
 
         self.assertRaises(NameError, lambda: p.set("a.b.c.123.d", 1, protect_structure = False))
 
-        self.assert_(p.a == 12)
-        self.assert_(p == pc)
+        self.assertTrue(p.a == 12)
+        self.assertTrue(p == pc)
 
     def testSet_19_overwriting_value_with_branch_03_error(self):
         p = makeTDInstance()
@@ -300,7 +300,7 @@ class TestSetting(unittest.TestCase):
 
         p.defs.a1.v = 1
 
-        self.assert_(p.a.v == 1)
+        self.assertTrue(p.a.v == 1)
 
     def testSet_20_setting_linked_branch_02(self):
         p = makeTDInstance()
@@ -309,7 +309,7 @@ class TestSetting(unittest.TestCase):
 
         p.set("defs.a1.v", 1)
 
-        self.assert_(p.a.v == 1)
+        self.assertTrue(p.a.v == 1)
 
     def testSet_21_Setting_ThroughmakeTDInstance_01(self):
         p = makeTDInstance()
@@ -318,21 +318,21 @@ class TestSetting(unittest.TestCase):
 
         p.set("a.b.c.d.x", 1)
 
-        self.assert_(p.a.b.c.d.x == 1)
-        self.assert_(p.a.b.isRoot())
+        self.assertTrue(p.a.b.c.d.x == 1)
+        self.assertTrue(p.a.b.isRoot())
 
     def testSet_21_Setting_ThroughmakeTDInstance_02(self):
         p = makeTDInstance()
         p.a.b = makeTDInstance()
         p["a.b.c.d.x"] = 1
 
-        self.assert_(p.a.b.c.d.x == 1)
-        self.assert_(p.a.b.isRoot())
+        self.assertTrue(p.a.b.c.d.x == 1)
+        self.assertTrue(p.a.b.isRoot())
 
     def testSetInit_01(self):
         p = makeTDInstance(a = 1, b = 2)
-        self.assert_(p.a == 1)
-        self.assert_(p.b == 2)
+        self.assertTrue(p.a == 1)
+        self.assertTrue(p.b == 2)
 
 
     def testSet_30_ValueFrozen_01(self):
@@ -390,7 +390,7 @@ class TestSetting(unittest.TestCase):
 
         p1.checkset(a = 123)
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
     def testDrySet_02(self):
         p1 = sample_tree().copy(deep=True)
@@ -402,9 +402,9 @@ class TestSetting(unittest.TestCase):
 
         p1.checkset(v = 123)
 
-        self.assert_(p1.v != 123)
-        self.assert_(p1.v == 100)
-        self.assert_(p1 == p2)
+        self.assertTrue(p1.v != 123)
+        self.assertTrue(p1.v == 100)
+        self.assertTrue(p1 == p2)
 
     def testDrySet_03(self):
         p = sample_tree()
@@ -414,7 +414,7 @@ class TestSetting(unittest.TestCase):
 
         p1.checkset("a.b.c.d", 123)
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
     def testDrySet_04_value_overwrite(self):
         p = makeTDInstance()
@@ -424,7 +424,7 @@ class TestSetting(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.checkset("b.a", None, protect_structure = True))
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     def testDrySet_05_makeBranch_Frozen(self):
         p = makeTDInstance()
@@ -435,7 +435,7 @@ class TestSetting(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.checkset("b.a", None))
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     def testDrySet_06_makeBranch_Frozen_StructureOnly(self):
         p = makeTDInstance()
@@ -446,7 +446,7 @@ class TestSetting(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.checkset("b.a", None))
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     def testDrySet_07_makeBranch_Frozen_StructureOnly_Okay(self):
         p = makeTDInstance()
@@ -458,9 +458,9 @@ class TestSetting(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.checkset("b.b", None))
 
-        self.assert_(p.b.a == 1)
+        self.assertTrue(p.b.a == 1)
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     def testDrySet_08_makeBranch_Frozen_StructureOnly_Okay(self):
         p = makeTDInstance()
@@ -470,9 +470,9 @@ class TestSetting(unittest.TestCase):
         p_before = p.copy()
         p.checkset('b.a', 2)
 
-        self.assert_(p.b.a == 1)
+        self.assertTrue(p.b.a == 1)
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     def testDrySet_10_makeBranch_Frozen_ValuesOnly_01(self):
         p = makeTDInstance()
@@ -483,7 +483,7 @@ class TestSetting(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.checkset("b.a", 2))
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     def testDrySet_10_makeBranch_Frozen_ValuesOnly_01b(self):
         p = makeTDInstance()
@@ -494,7 +494,7 @@ class TestSetting(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.checkset("b.a", 2))
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     def testDrySet_10_makeBranch_Frozen_ValuesOnly_02(self):
         p = makeTDInstance()
@@ -505,7 +505,7 @@ class TestSetting(unittest.TestCase):
 
         p.checkset("c.a", 2)
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     ############################################################
     # Setting arguments from string
@@ -513,32 +513,32 @@ class TestSetting(unittest.TestCase):
     def testSetFromString_01(self):
         p = sample_tree()
 
-        self.assert_(p.setFromString("a", "(0,1,2)"))
-        self.assert_(p.a == (0,1,2))
+        self.assertTrue(p.setFromString("a", "(0,1,2)"))
+        self.assertTrue(p.a == (0,1,2))
 
     def testSetFromString_02(self):
         p = sample_tree()
 
-        self.assert_(p.setFromString("a", "'string'"))
-        self.assert_(p.a == 'string')
+        self.assertTrue(p.setFromString("a", "'string'"))
+        self.assertTrue(p.a == 'string')
 
     def testSetFromString_03(self):
         p = sample_tree()
 
-        self.assert_(p.setFromString("a", "123 + 345"))
-        self.assert_(p.a == 123 + 345)
+        self.assertTrue(p.setFromString("a", "123 + 345"))
+        self.assertTrue(p.a == 123 + 345)
 
     def testSetFromString_04(self):
         p = sample_tree()
 
-        self.assert_(not p.setFromString("a", "123 345"))
-        self.assert_(p.a == "123 345")
+        self.assertTrue(not p.setFromString("a", "123 345"))
+        self.assertTrue(p.a == "123 345")
 
     def testSetFromString_05(self):
         p = sample_tree()
 
-        self.assert_(p.setFromString("a", "x/2", {"x" : 4}))
-        self.assert_(p.a == 2)
+        self.assertTrue(p.setFromString("a", "x/2", {"x" : 4}))
+        self.assertTrue(p.a == 2)
 
 
     ################################################################################
@@ -555,7 +555,7 @@ class TestSetting(unittest.TestCase):
 
         self.assertRaises(NameError, f)
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
     def testDictSet_nochange_on_failure(self):
         p = sample_tree()
@@ -568,7 +568,7 @@ class TestSetting(unittest.TestCase):
 
         self.assertRaises(NameError, f)
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
     def testFromKeys_01_setting(self):
 
@@ -577,7 +577,7 @@ class TestSetting(unittest.TestCase):
         p = TreeDict.fromkeys(key_iterable)
 
         for n in key_iterable:
-            self.assert_(p.get(n) is None)
+            self.assertTrue(p.get(n) is None)
 
 
     def testFromKeys_02_setting(self):
@@ -588,7 +588,7 @@ class TestSetting(unittest.TestCase):
         p = TreeDict.fromkeys(key_iterable, v)
 
         for n in key_iterable:
-            self.assert_(p.get(n) is v)
+            self.assertTrue(p.get(n) is v)
 
 
     def testFromKeys_03_checking_01(self):
@@ -616,7 +616,7 @@ class TestSetting(unittest.TestCase):
 
         p.fromkeys(key_iterable)
 
-        self.assert_(p == sample_tree())
+        self.assertTrue(p == sample_tree())
 
     # Add in fromdict testing here
 
@@ -628,7 +628,7 @@ class TestSetting(unittest.TestCase):
         t2.a.x = 1
         t2.a.y = 2
 
-        self.assert_(t == t2)
+        self.assertTrue(t == t2)
 
     def testFromDict_02(self):
         t = TreeDict.fromdict({'a' : {'x' : 1, 'y' : 2}, 'z' : 3},
@@ -639,7 +639,7 @@ class TestSetting(unittest.TestCase):
         t2.a.x = 1
         t2.a.y = 2
 
-        self.assert_(t == t2)
+        self.assertTrue(t == t2)
 
     def testFromDict_03_root_linked(self):
 
@@ -649,7 +649,7 @@ class TestSetting(unittest.TestCase):
 
         t = TreeDict.fromdict(d, expand_nested = True)
 
-        self.assert_(t.a is t)
+        self.assertTrue(t.a is t)
 
     def testOrdering_01(self):
         t = makeTDInstance()
@@ -657,8 +657,8 @@ class TestSetting(unittest.TestCase):
         t.a = 1
         t.b = 2
 
-        self.assert_(t._getSettingOrderPosition('a') == (0,), t._getSettingOrderPosition('a'))
-        self.assert_(t._getSettingOrderPosition('b') == (1,), t._getSettingOrderPosition('b'))
+        self.assertTrue(t._getSettingOrderPosition('a') == (0,), t._getSettingOrderPosition('a'))
+        self.assertTrue(t._getSettingOrderPosition('b') == (1,), t._getSettingOrderPosition('b'))
 
     def testOrdering_02(self):
 
@@ -669,12 +669,12 @@ class TestSetting(unittest.TestCase):
         t.x.y = 3
         t.b.a = 4
 
-        self.assert_(t._getSettingOrderPosition('a') == (0,),  t._getSettingOrderPosition('a'))
-        self.assert_(t._getSettingOrderPosition('b') == (1,), t._getSettingOrderPosition('b'))
-        self.assert_(t._getSettingOrderPosition('x') == (2,), t._getSettingOrderPosition('x'))
-        self.assert_(t._getSettingOrderPosition('b.c') == (1,0), t._getSettingOrderPosition('b.c'))
-        self.assert_(t._getSettingOrderPosition('b.a') == (1,1), t._getSettingOrderPosition('b.a'))
-        self.assert_(t._getSettingOrderPosition('x.y') == (2,0), t._getSettingOrderPosition('x.y'))
+        self.assertTrue(t._getSettingOrderPosition('a') == (0,),  t._getSettingOrderPosition('a'))
+        self.assertTrue(t._getSettingOrderPosition('b') == (1,), t._getSettingOrderPosition('b'))
+        self.assertTrue(t._getSettingOrderPosition('x') == (2,), t._getSettingOrderPosition('x'))
+        self.assertTrue(t._getSettingOrderPosition('b.c') == (1,0), t._getSettingOrderPosition('b.c'))
+        self.assertTrue(t._getSettingOrderPosition('b.a') == (1,1), t._getSettingOrderPosition('b.a'))
+        self.assertTrue(t._getSettingOrderPosition('x.y') == (2,0), t._getSettingOrderPosition('x.y'))
 
 if __name__ == '__main__':
     unittest.main()

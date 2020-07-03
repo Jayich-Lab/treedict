@@ -43,57 +43,57 @@ class TestPruning(unittest.TestCase):
         p.a.b.c = 123
         h1 = p.hash()
 
-        self.assert_('a.b.c' in p)
+        self.assertTrue('a.b.c' in p)
 
         p.pop('a.b.c')
 
-        self.assert_('a.b.c' not in p)
+        self.assertTrue('a.b.c' not in p)
 
         h2 = p.hash()
 
         p.a.b.c = 123
         h3 = p.hash()
 
-        self.assert_(h1 != h2)
-        self.assert_(h1 == h3)
+        self.assertTrue(h1 != h2)
+        self.assertTrue(h1 == h3)
 
     def testpruning_02(self):
         p = makeTDInstance('prunetest')
         p.a.b.c = 123
         h1 = p.hash()
 
-        self.assert_('a.b.c' in p)
+        self.assertTrue('a.b.c' in p)
 
         p.pop('a.b.c', prune_empty=True)
 
-        self.assert_('a.b' not in p)
+        self.assertTrue('a.b' not in p)
 
         h2 = p.hash()
 
         p.a.b.c = 123
         h3 = p.hash()
 
-        self.assert_(h1 != h2)
-        self.assert_(h1 == h3)
+        self.assertTrue(h1 != h2)
+        self.assertTrue(h1 == h3)
 
     def testpruning_03(self):
         p = makeTDInstance('prunetest')
         p.a.b.c = 123
         h1 = p.hash()
 
-        self.assert_('a.b.c' in p)
+        self.assertTrue('a.b.c' in p)
 
         del p.a.b.c
 
-        self.assert_('a.b.c' not in p)
+        self.assertTrue('a.b.c' not in p)
 
         h2 = p.hash()
 
         p.a.b.c = 123
         h3 = p.hash()
 
-        self.assert_(h1 != h2)
-        self.assert_(h1 == h3)
+        self.assertTrue(h1 != h2)
+        self.assertTrue(h1 == h3)
 
     def testpruning_04(self):
         p1 = sample_tree()
@@ -101,12 +101,12 @@ class TestPruning(unittest.TestCase):
 
         p2 = deepcopy(p1)
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
         p1.pop("testnode")
 
-        self.assert_(p1 != p2)
-        self.assert_('testnode' not in p1)
+        self.assertTrue(p1 != p2)
+        self.assertTrue('testnode' not in p1)
 
     def testpruning_05_silent(self):
         p1 = sample_tree()
@@ -114,19 +114,19 @@ class TestPruning(unittest.TestCase):
 
         p2 = deepcopy(p1)
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
         self.assertRaises(KeyError, lambda: p1.pop("testnode_nonexistent"))
 
         p1.pop("testnode_nonexistent", silent=True)
 
-        self.assert_(p1 == p2)
-        self.assert_('testnode' in p1)
+        self.assertTrue(p1 == p2)
+        self.assertTrue('testnode' in p1)
 
         p1.pop("testnode", silent=True)
 
-        self.assert_(p1 != p2)
-        self.assert_('testnode' not in p1)
+        self.assertTrue(p1 != p2)
+        self.assertTrue('testnode' not in p1)
 
     def testpruning_06_silent_popitem(self):
         p1 = sample_tree()
@@ -134,19 +134,19 @@ class TestPruning(unittest.TestCase):
 
         p2 = deepcopy(p1)
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
         self.assertRaises(KeyError, lambda: p1.popitem("testnode_nonexistent"))
 
         p1.pop("testnode_nonexistent", silent=True)
 
-        self.assert_(p1 == p2)
-        self.assert_('testnode' in p1)
+        self.assertTrue(p1 == p2)
+        self.assertTrue('testnode' in p1)
 
         p1.popitem("testnode", silent=True)
 
-        self.assert_(p1 != p2)
-        self.assert_('testnode' not in p1)
+        self.assertTrue(p1 != p2)
+        self.assertTrue('testnode' not in p1)
 
 class TestDeletion(unittest.TestCase):
 
@@ -155,11 +155,11 @@ class TestDeletion(unittest.TestCase):
         p = makeTDInstance()
         p.a = 1
 
-        self.assert_('a' in p)
+        self.assertTrue('a' in p)
 
         del p['a']
 
-        self.assert_('a' not in p)
+        self.assertTrue('a' not in p)
 
 
     def testDeletion_02(self):
@@ -167,13 +167,13 @@ class TestDeletion(unittest.TestCase):
         p = makeTDInstance()
         p.a.b.c = 1
 
-        self.assert_('a.b.c' in p)
+        self.assertTrue('a.b.c' in p)
 
         del p['a.b.c']
 
-        self.assert_('a' in p)
-        self.assert_('a.b' in p)
-        self.assert_('a.b.c' not in p)
+        self.assertTrue('a' in p)
+        self.assertTrue('a.b' in p)
+        self.assertTrue('a.b.c' not in p)
 
     def testDeletion_03_is_detached(self):
         p = makeTDInstance()
@@ -182,8 +182,8 @@ class TestDeletion(unittest.TestCase):
 
         del p["a"]
 
-        self.assert_(a.rootNode() is not p)
-        self.assert_(a.parentNode() is None)
+        self.assertTrue(a.rootNode() is not p)
+        self.assertTrue(a.parentNode() is None)
 
     def testDeletion_04_properException_Attribute(self):
         p = makeTDInstance()
@@ -251,7 +251,7 @@ class TestDeletion(unittest.TestCase):
 
         del p.a
 
-        self.assert_('a' not in p)
+        self.assertTrue('a' not in p)
 
 
 
@@ -279,7 +279,7 @@ class TestDeletion(unittest.TestCase):
 
         self.assertRaises(TypeError, f)
 
-        self.assert_(p.a.x == 1)
+        self.assertTrue(p.a.x == 1)
 
     def testDeletion_11_Frozen_StructureOnly(self):
         p = makeTDInstance()
@@ -290,7 +290,7 @@ class TestDeletion(unittest.TestCase):
 
         del p.a
 
-        self.assert_('a' not in p)
+        self.assertTrue('a' not in p)
 
     def testDeletion_12_Frozen_ValuesOnly(self):
         p = makeTDInstance()
@@ -304,7 +304,7 @@ class TestDeletion(unittest.TestCase):
 
         self.assertRaises(TypeError, f)
 
-        self.assert_(p.x == 1)
+        self.assertTrue(p.x == 1)
 
     def testDeletion_13_Frozen_ValuesOnly(self):
         p = makeTDInstance()
@@ -318,7 +318,7 @@ class TestDeletion(unittest.TestCase):
 
         self.assertRaises(TypeError, f)
 
-        self.assert_(p.a.x == 1)
+        self.assertTrue(p.a.x == 1)
 
     def testDeletion_14_Frozen_ValuesOnly(self):
         p = makeTDInstance()
@@ -329,7 +329,7 @@ class TestDeletion(unittest.TestCase):
 
         del p.a
 
-        self.assert_('a' not in p)
+        self.assertTrue('a' not in p)
 
 
     def testDeletionPI_06_Frozen(self):
@@ -365,7 +365,7 @@ class TestDeletion(unittest.TestCase):
 
         p.popitem('a')
 
-        self.assert_('a' not in p)
+        self.assertTrue('a' not in p)
 
 
 
@@ -393,7 +393,7 @@ class TestDeletion(unittest.TestCase):
 
         self.assertRaises(TypeError, f)
 
-        self.assert_(p.a.x == 1)
+        self.assertTrue(p.a.x == 1)
 
     def testDeletionPI_11_Frozen_StructureOnly(self):
         p = makeTDInstance()
@@ -404,7 +404,7 @@ class TestDeletion(unittest.TestCase):
 
         p.popitem('a')
 
-        self.assert_('a' not in p)
+        self.assertTrue('a' not in p)
 
     def testDeletionPI_12_Frozen_ValuesOnly(self):
         p = makeTDInstance()
@@ -418,7 +418,7 @@ class TestDeletion(unittest.TestCase):
 
         self.assertRaises(TypeError, f)
 
-        self.assert_(p.x == 1)
+        self.assertTrue(p.x == 1)
 
     def testDeletionPI_13_Frozen_ValuesOnly(self):
         p = makeTDInstance()
@@ -432,7 +432,7 @@ class TestDeletion(unittest.TestCase):
 
         self.assertRaises(TypeError, f)
 
-        self.assert_(p.a.x == 1)
+        self.assertTrue(p.a.x == 1)
 
     def testDeletionPI_14_Frozen_ValuesOnly(self):
         p = makeTDInstance()
@@ -443,7 +443,7 @@ class TestDeletion(unittest.TestCase):
 
         del p.a
 
-        self.assert_('a' not in p)
+        self.assertTrue('a' not in p)
 
 
 if __name__ == '__main__':

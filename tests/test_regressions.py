@@ -39,13 +39,13 @@ from common import *
 class TestRegressions(unittest.TestCase):
     def testFromdict_with_get_01(self):
         t = TreeDict.fromdict({'a':1,'b':2})
-        self.assert_(t.get("c", []) == [])
+        self.assertTrue(t.get("c", []) == [])
 
     def testFromdict_with_get_01_control(self):
         t = makeTDInstance()
         t.update({'a':1,'b':2})
 
-        self.assert_(t.get("c", []) == [])
+        self.assertTrue(t.get("c", []) == [])
 
     def testFromdict_with_get_02(self):
         t1 = TreeDict.fromdict({'a':1,'b':2})
@@ -53,7 +53,7 @@ class TestRegressions(unittest.TestCase):
         t2 = makeTDInstance()
         t2.update({'a':1,'b':2})
 
-        self.assert_(t1 == t2)
+        self.assertTrue(t1 == t2)
 
 if __name__ == '__main__':
     unittest.main()

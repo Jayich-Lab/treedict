@@ -59,7 +59,7 @@ class TestUpdate(unittest.TestCase):
         p3.update(update_tree, overwrite, protect_structure)
         check_function(p3)
 
-        self.assert_(prev_update_tree == update_tree)
+        self.assertTrue(prev_update_tree == update_tree)
 
     def checkUpdateBadStructure(self, base_tree, update_tree):
 
@@ -70,17 +70,17 @@ class TestUpdate(unittest.TestCase):
         p3 = base_tree.copy()
 
         self.assertRaises(TypeError, lambda: p1.update(update_tree.iteritems(), True, True))
-        self.assert_(p1 == base_tree)
+        self.assertTrue(p1 == base_tree)
 
         self.assertRaises(TypeError, lambda: p2.update(dict(update_tree.iteritems()), True, True))
-        self.assert_(p2 == base_tree)
+        self.assertTrue(p2 == base_tree)
 
         prev_update_tree = update_tree.copy()
 
         self.assertRaises(TypeError, lambda: p3.update(update_tree, True, True))
-        self.assert_(p3 == base_tree)
+        self.assertTrue(p3 == base_tree)
 
-        self.assert_(prev_update_tree == update_tree)
+        self.assertTrue(prev_update_tree == update_tree)
 
 
     def testUpdate_01_basic_01(self):
@@ -88,7 +88,7 @@ class TestUpdate(unittest.TestCase):
         q = makeTDInstance(y = 3, z = 4)
 
         def check(r):
-            self.assert_(r == makeTDInstance(x = 1, y = 3, z = 4))
+            self.assertTrue(r == makeTDInstance(x = 1, y = 3, z = 4))
 
         # This should be the same between these options
         self.checkUpdate(p, q, True, check, overwrite = True, protect_structure = False)
@@ -99,8 +99,8 @@ class TestUpdate(unittest.TestCase):
         q = makeTDInstance(y = 3, z = 4)
 
         def check(r):
-            self.assert_(r.y == 2)
-            self.assert_(r == makeTDInstance(x = 1, y = 2, z = 4))
+            self.assertTrue(r.y == 2)
+            self.assertTrue(r == makeTDInstance(x = 1, y = 2, z = 4))
 
         self.checkUpdate(p, q, False, check, overwrite = False, protect_structure = False)
         self.checkUpdate(p, q, False, check, overwrite = False, protect_structure = True)
@@ -116,9 +116,9 @@ class TestUpdate(unittest.TestCase):
         q.a.z = 4
 
         def check(r):
-            self.assert_(r.a.x == 1)
-            self.assert_(r.a.y == 3)
-            self.assert_(r.a.z == 4)
+            self.assertTrue(r.a.x == 1)
+            self.assertTrue(r.a.y == 3)
+            self.assertTrue(r.a.z == 4)
 
         self.checkUpdate(p, q, True, check, overwrite = True, protect_structure = False)
         self.checkUpdate(p, q, True, check, overwrite = True, protect_structure = True)
@@ -134,9 +134,9 @@ class TestUpdate(unittest.TestCase):
         q.a.z = 4
 
         def check(r):
-            self.assert_(r.a.x == 1)
-            self.assert_(r.a.y == 2)
-            self.assert_(r.a.z == 4)
+            self.assertTrue(r.a.x == 1)
+            self.assertTrue(r.a.y == 2)
+            self.assertTrue(r.a.z == 4)
 
         self.checkUpdate(p, q, True, check, overwrite = False, protect_structure = False)
         self.checkUpdate(p, q, True, check, overwrite = False, protect_structure = True)
@@ -151,7 +151,7 @@ class TestUpdate(unittest.TestCase):
         q.a = 3
 
         def check(r):
-            self.assert_(r == makeTDInstance(a = 3))
+            self.assertTrue(r == makeTDInstance(a = 3))
 
         self.checkUpdate(p, q, True, check, overwrite = True, protect_structure = False)
 
@@ -167,7 +167,7 @@ class TestUpdate(unittest.TestCase):
         q.a = 3
 
         def check(r):
-            self.assert_(r == ct)
+            self.assertTrue(r == ct)
 
         self.checkUpdate(p, q, True, check, overwrite = False, protect_structure = False)
         self.checkUpdate(p, q, True, check, overwrite = False, protect_structure = True)
@@ -197,7 +197,7 @@ class TestUpdate(unittest.TestCase):
         ct = q.copy()
 
         def check(r):
-            self.assert_(r == ct)
+            self.assertTrue(r == ct)
 
         self.checkUpdate(p, q, True, check, overwrite = True, protect_structure = False)
 
@@ -213,7 +213,7 @@ class TestUpdate(unittest.TestCase):
         ct = q.copy()
 
         def check(r):
-            self.assert_(r == makeTDInstance(a = 3))
+            self.assertTrue(r == makeTDInstance(a = 3))
 
         self.checkUpdate(p, q, True, check, overwrite = False, protect_structure = False)
         self.checkUpdate(p, q, True, check, overwrite = False, protect_structure = True)
@@ -227,7 +227,7 @@ class TestUpdate(unittest.TestCase):
         q = makeTDInstance(x = u)
 
         def check(r):
-            self.assert_(r.x is u)
+            self.assertTrue(r.x is u)
 
         self.checkUpdate(p, q, False, check, overwrite, protect_structure)
 
@@ -255,7 +255,7 @@ class TestUpdate(unittest.TestCase):
 
         def check(r):
             for k, v in chain(cp.iteritems(), cq.iteritems()):
-                self.assert_(r[k] is v)
+                self.assertTrue(r[k] is v)
 
         self.checkUpdate(p, q, False, check, overwrite, protect_structure)
 
@@ -286,8 +286,8 @@ class TestUpdate(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.update(q, protect_structure = True))
 
-        self.assert_(cp == p)
-        self.assert_(cq == q)
+        self.assertTrue(cp == p)
+        self.assertTrue(cq == q)
 
     ################################################################################
     # Proper attachments
@@ -303,7 +303,7 @@ class TestUpdate(unittest.TestCase):
             for k in chain(cp.iterkeys(recursive = True, branch_mode = 'only'),
                            cq.iterkeys(recursive = True, branch_mode = 'only')):
 
-                self.assert_(r[k].rootNode() is r)
+                self.assertTrue(r[k].rootNode() is r)
 
         self.checkUpdate(p, q, False, check, overwrite, protect_structure)
 
@@ -332,9 +332,9 @@ class TestUpdate(unittest.TestCase):
         q.a.z = 4
 
         def check(r):
-            self.assert_(r.a.x == 1)
-            self.assert_(r.a.y == 3 if overwrite else 2)
-            self.assert_(r.a.z == 4)
+            self.assertTrue(r.a.x == 1)
+            self.assertTrue(r.a.y == 3 if overwrite else 2)
+            self.assertTrue(r.a.z == 4)
 
         self.checkUpdate(p, q, deep_copy, check, overwrite, protect_structure)
 
@@ -374,19 +374,19 @@ class TestUpdate(unittest.TestCase):
 
         p2.update(p)
 
-        self.assert_(p.a is not p2.a)
-        self.assert_(p.a.rootNode() is p)
-        self.assert_(p.a.parentNode() is p)
-        self.assert_(p2.a.rootNode() is p2)
-        self.assert_(p2.a.parentNode() is p2)
+        self.assertTrue(p.a is not p2.a)
+        self.assertTrue(p.a.rootNode() is p)
+        self.assertTrue(p.a.parentNode() is p)
+        self.assertTrue(p2.a.rootNode() is p2)
+        self.assertTrue(p2.a.parentNode() is p2)
 
-        self.assert_(p.a.b == p2.a.b)
-        self.assert_(p.a.b is p2.a.b)
+        self.assertTrue(p.a.b == p2.a.b)
+        self.assertTrue(p.a.b is p2.a.b)
 
-        self.assert_(p.a.c == p2.a.c)
-        self.assert_(p.a.c is p2.a.c)
+        self.assertTrue(p.a.c == p2.a.c)
+        self.assertTrue(p.a.c is p2.a.c)
 
-        self.assert_(p == p2)
+        self.assertTrue(p == p2)
 
     def testUpdate_10_rewritingLocal(self):
 
@@ -400,8 +400,8 @@ class TestUpdate(unittest.TestCase):
 
         p.update(q)
 
-        self.assert_(p.a.isRoot())
-        self.assert_(p.a.x == 1)
+        self.assertTrue(p.a.isRoot())
+        self.assertTrue(p.a.x == 1)
 
     def testUpdate_12_Atomic_01(self):
 
@@ -414,11 +414,11 @@ class TestUpdate(unittest.TestCase):
         p2 = makeTDInstance(a = 1)
         p2["b.a"] = 4
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
         self.assertRaises(TypeError, lambda: p.update(p2))
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     def testUpdate_12_Atomic_01b_large(self):
 
@@ -434,11 +434,11 @@ class TestUpdate(unittest.TestCase):
         p2.update(random_tree())
         p2["b.a"] = 4
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
         self.assertRaises(TypeError, lambda: p.update(p2))
 
-        self.assert_(p_before == p)
+        self.assertTrue(p_before == p)
 
     def testUpdate_12_Atomic_02(self):
 
@@ -452,11 +452,11 @@ class TestUpdate(unittest.TestCase):
 
         p_before = p.copy()
 
-        self.assert_(p == p_before)
+        self.assertTrue(p == p_before)
 
         self.checkUpdateBadStructure(p, p2)
 
-        self.assert_(p == p_before)
+        self.assertTrue(p == p_before)
 
     ################################################################################
     # Making sure branch values are not wrongly attached
@@ -472,12 +472,12 @@ class TestUpdate(unittest.TestCase):
         az = p2.a.z = makeTDInstance()
 
         def check(r):
-            self.assert_(r.a.x is ax)
-            self.assert_(r.a.x.isRoot())
-            self.assert_(r.a.y is ay)
-            self.assert_(r.a.z is az)
-            self.assert_(r.a.z.isRoot())
-            self.assert_(r.b == 2)
+            self.assertTrue(r.a.x is ax)
+            self.assertTrue(r.a.x.isRoot())
+            self.assertTrue(r.a.y is ay)
+            self.assertTrue(r.a.z is az)
+            self.assertTrue(r.a.z.isRoot())
+            self.assertTrue(r.b == 2)
 
         self.checkUpdate(p2, p, False, check, overwrite, protect_structure)
 
@@ -505,9 +505,9 @@ class TestUpdate(unittest.TestCase):
 
         p.update(q, overwrite=overwrite, protect_structure =protect_structure)
 
-        self.assert_(p.a.x == 1)
-        self.assert_(a is p.a)
-        self.assert_(a.rootNode() is p)
+        self.assertTrue(p.a.x == 1)
+        self.assertTrue(a is p.a)
+        self.assertTrue(a.rootNode() is p)
 
     def testUpdate_15_DanglingNodesAttached_FF(self):
         self.checkUpdate_15_DanglingNodesAttached(False, False)
@@ -531,7 +531,7 @@ class TestUpdate(unittest.TestCase):
         q.a
 
         def check(r):
-            self.assert_(r.a == 1)
+            self.assertTrue(r.a == 1)
 
         self.checkUpdate(p, q, False, check, overwrite=True, protect_structure=True)
 
@@ -551,8 +551,8 @@ class TestUpdate(unittest.TestCase):
 
         p.update(q)
 
-        self.assert_(p.a.x == 1)
-        self.assert_(p.b == 2)
+        self.assertTrue(p.a.x == 1)
+        self.assertTrue(p.b == 2)
 
     def testUpdate_WithFreezing_02(self):
 
@@ -568,8 +568,8 @@ class TestUpdate(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.update(q))
 
-        self.assert_(p.a.x == 1)
-        self.assert_('b.y' not in p)
+        self.assertTrue(p.a.x == 1)
+        self.assertTrue('b.y' not in p)
 
     def testUpdate_WithFreezing_StructureOnly_01(self):
 
@@ -583,7 +583,7 @@ class TestUpdate(unittest.TestCase):
 
         p.update(q)
 
-        self.assert_(p.a == 2)
+        self.assertTrue(p.a == 2)
 
     def testUpdate_WithFreezing_StructureOnly_02(self):
 
@@ -598,8 +598,8 @@ class TestUpdate(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.update(q))
 
-        self.assert_(p.a == 1)
-        self.assert_('b' not in p)
+        self.assertTrue(p.a == 1)
+        self.assertTrue('b' not in p)
 
     def testUpdate_WithFreezing_StructureOnly_03(self):
 
@@ -614,8 +614,8 @@ class TestUpdate(unittest.TestCase):
 
         self.assertRaises(TypeError, lambda: p.update(q))
 
-        self.assert_(p.a.x == 1)
-        self.assert_('b' not in p)
+        self.assertTrue(p.a.x == 1)
+        self.assertTrue('b' not in p)
 
 
     def testUpdate_WithFreezing_StructureOnly_04(self):
@@ -631,8 +631,8 @@ class TestUpdate(unittest.TestCase):
 
         p.update(q)
 
-        self.assert_(p.a.x == 2)
-        self.assert_(p.b == 3)
+        self.assertTrue(p.a.x == 2)
+        self.assertTrue(p.b == 3)
 
     def testUpdate_WithFreezing_ValuesOnly_01(self):
 
@@ -646,8 +646,8 @@ class TestUpdate(unittest.TestCase):
 
         p.update(q)
 
-        self.assert_(p.a == 1)
-        self.assert_(p.b == 2)
+        self.assertTrue(p.a == 1)
+        self.assertTrue(p.b == 2)
 
     def testUpdate_WithFreezing_ValuesOnly_02(self):
 
@@ -661,8 +661,8 @@ class TestUpdate(unittest.TestCase):
 
         p.update(q)
 
-        self.assert_(p.a.b == 1)
-        self.assert_(p.a.c == 2)
+        self.assertTrue(p.a.b == 1)
+        self.assertTrue(p.a.c == 2)
 
     def testUpdate_WithFreezing_ValuesOnly_03(self):
 
@@ -702,9 +702,9 @@ class TestUpdate(unittest.TestCase):
 
         p.update(q)
 
-        self.assert_(p.a.b == 1)
-        self.assert_(p.a.c.d == 2)
-        self.assert_(p.a.c.e == 3)
+        self.assertTrue(p.a.b == 1)
+        self.assertTrue(p.a.c.d == 2)
+        self.assertTrue(p.a.c.e == 3)
 
     def testUpdate_WithFreezing_ValuesOnly_06(self):
 

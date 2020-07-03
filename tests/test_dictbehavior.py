@@ -46,57 +46,57 @@ class TestDictBehavior(unittest.TestCase):
         v = 14528483
         p.a.b.c = v
 
-        self.assert_(p["a.b.c"] is v)
-        self.assert_(p.a["b.c"] is v)
-        self.assert_(p.a.b["c"] is v)
-        self.assert_(p["a"].b.c is v)
-        self.assert_(p.a["b"]["c"] is v)
-        self.assert_(p.get("a").b["c"] is v)
+        self.assertTrue(p["a.b.c"] is v)
+        self.assertTrue(p.a["b.c"] is v)
+        self.assertTrue(p.a.b["c"] is v)
+        self.assertTrue(p["a"].b.c is v)
+        self.assertTrue(p.a["b"]["c"] is v)
+        self.assertTrue(p.get("a").b["c"] is v)
 
     def testDictBehavior_02(self):
         
         p = makeTDInstance()
         p.a = 123
 
-        self.assert_( ("%(a)d" % p) == "123")
+        self.assertTrue( ("%(a)d" % p) == "123")
 
     def testDictBehavior_03(self):
         
         p = makeTDInstance()
         p.a.b.c = 123
 
-        self.assert_( ("%(a.b.c)d" % p) == "123")
+        self.assertTrue( ("%(a.b.c)d" % p) == "123")
 
     def testDictBehavior_04(self):
         p = makeTDInstance()
         v = ("borkborkbork", 123)
         p["a"] = v
 
-        self.assert_(p.a is v)
+        self.assertTrue(p.a is v)
 
     def testDictBehavior_05(self):
         p = makeTDInstance()
         v = ("borkborkbork", 123)
         p["a.b.c"] = v
 
-        self.assert_(p.a.b.c is v)
+        self.assertTrue(p.a.b.c is v)
 
     def testDictBehavior_06_clear_01(self):
         p = makeTDInstance()
 
         p["a"] = 1
         
-        self.assert_("a" in p)
+        self.assertTrue("a" in p)
         
         p.clear()
         
-        self.assert_("a" not in p)
-        self.assert_(len(p) == 0)
+        self.assertTrue("a" not in p)
+        self.assertTrue(len(p) == 0)
 
     def testDictBehavior_06_clear_02(self):
         p = sample_tree()
         p.clear()
-        self.assert_(len(p) == 0)
+        self.assertTrue(len(p) == 0)
 
     def testDictBehavior_07_FromKeys_01(self):
         p = makeTDInstance()
@@ -104,7 +104,7 @@ class TestDictBehavior(unittest.TestCase):
 
         key_iterable = ["alphabet"]
 
-        self.assert_(p.fromkeys(key_iterable) == d.fromkeys(key_iterable))
+        self.assertTrue(p.fromkeys(key_iterable) == d.fromkeys(key_iterable))
         
     def testDictBehavior_07_FromKeys_02(self):
         p = makeTDInstance()
@@ -113,7 +113,7 @@ class TestDictBehavior(unittest.TestCase):
 
         key_iterable = ["alph", "bork"]
         
-        self.assert_(p.fromkeys(key_iterable, v) == d.fromkeys(key_iterable, v))
+        self.assertTrue(p.fromkeys(key_iterable, v) == d.fromkeys(key_iterable, v))
 
     def testDictBehavior_08_equality_tests(self):
         p = makeTDInstance()
@@ -121,9 +121,9 @@ class TestDictBehavior(unittest.TestCase):
         p.v = 1
         p.a.b.c = 2
     
-        self.assert_(p == {'v' : 1, "a.b.c" : 2})
-        self.assert_(p != {'v' : 2, "a.b.c" : 2})
-        self.assert_(p != {'v' : 1, "a.b.c" : None})
+        self.assertTrue(p == {'v' : 1, "a.b.c" : 2})
+        self.assertTrue(p != {'v' : 2, "a.b.c" : 2})
+        self.assertTrue(p != {'v' : 1, "a.b.c" : None})
 
 
     def testDictBehavior_09_setdefault_01(self):
@@ -132,12 +132,12 @@ class TestDictBehavior(unittest.TestCase):
         
         d = dict(p.iteritems())
         
-        self.assert_(p == d)
+        self.assertTrue(p == d)
 
         p.setdefault('a')
         d.setdefault('a')
 
-        self.assert_(p == d)
+        self.assertTrue(p == d)
         
     def testDictBehavior_09_setdefault_02(self):
 
@@ -145,12 +145,12 @@ class TestDictBehavior(unittest.TestCase):
         
         d = dict(p.iteritems())
         
-        self.assert_(p == d)
+        self.assertTrue(p == d)
 
         p.setdefault('a', [123])
         d.setdefault('a', [123])
 
-        self.assert_(p == d)
+        self.assertTrue(p == d)
 
     def testDictBehavior_09_setdefault_03(self):
 
@@ -160,12 +160,12 @@ class TestDictBehavior(unittest.TestCase):
         
         d = dict(p.iteritems())
         
-        self.assert_(p == d)
+        self.assertTrue(p == d)
 
         p.setdefault('a.aa.aaa.b', 1)
         d.setdefault('a.aa.aaa.b', 1)
 
-        self.assert_(p == d)
+        self.assertTrue(p == d)
 
     def testDictBehavior_09_setdefault_04(self):
 
@@ -174,12 +174,12 @@ class TestDictBehavior(unittest.TestCase):
         
         d = dict(p.iteritems())
         
-        self.assert_(p == d)
+        self.assertTrue(p == d)
 
         p.setdefault('a')
         d.setdefault('a')
 
-        self.assert_(p == d)
+        self.assertTrue(p == d)
 
     def testDictBehavior_09_setdefault_05(self):
 
@@ -188,12 +188,12 @@ class TestDictBehavior(unittest.TestCase):
         
         d = dict(p.iteritems())
         
-        self.assert_(p == d)
+        self.assertTrue(p == d)
 
         p.setdefault('a', 1)
         d.setdefault('a', 1)
 
-        self.assert_(p == d)
+        self.assertTrue(p == d)
 
     def testDictBehavior_10_straight_iteration(self):
         p = makeTDInstance()
@@ -205,7 +205,7 @@ class TestDictBehavior(unittest.TestCase):
         s1 = set([v for v in d])
         s2 = set([v for v in p])
 
-        self.assert_(s1 == s2, (s1, s2))
+        self.assertTrue(s1 == s2, (s1, s2))
 
 if __name__ == '__main__':
     unittest.main()

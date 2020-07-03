@@ -51,19 +51,19 @@ class TestBadValues(unittest.TestCase):
 
     def test_GetBadName_01(self):
         p = sample_tree()
-        self.assert_(KeyError, lambda: p.get("0393"))
+        self.assertTrue(KeyError, lambda: p.get("0393"))
 
     def test_GetBadName_02(self):
         p = sample_tree()
-        self.assert_(KeyError, lambda: p.get("0393.a.b.c"))
+        self.assertTrue(KeyError, lambda: p.get("0393.a.b.c"))
 
     def test_GetBadName_03(self):
         p = sample_tree()
-        self.assert_(KeyError, lambda: p.get("0393.a.b.c"))
+        self.assertTrue(KeyError, lambda: p.get("0393.a.b.c"))
 
     def test_getattr_BadName_01(self):  # ??????
         p = sample_tree()
-        self.assert_(KeyError, lambda: p.a_nonexistant)
+        self.assertTrue(KeyError, lambda: p.a_nonexistant)
 
 
     def testAttackWithNone_prune(self):
@@ -76,7 +76,7 @@ class TestBadValues(unittest.TestCase):
 
     def testAttackWithNone_equals(self):
         p = sample_tree()
-        self.assert_(p != None)
+        self.assertTrue(p != None)
 
     def testAttackWithNone_getClosest(self):
         p = sample_tree()

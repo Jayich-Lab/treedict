@@ -27,10 +27,7 @@
 
 
 import random, unittest, collections
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import pickle
 from treedict import TreeDict, getTree
 import treedict
 from copy import deepcopy, copy
@@ -47,43 +44,43 @@ class TestPickling(unittest.TestCase):
         s = pickle.dumps(p, protocol=0)
         p2 = pickle.loads(s)
 
-        self.assert_(p == p2)
+        self.assertTrue(p == p2)
 
     def testPickling_P1(self):
         p = sample_tree()
         s = pickle.dumps(p, protocol=1)
         p2 = pickle.loads(s)
         
-        self.assert_(p == p2)
+        self.assertTrue(p == p2)
 
     def testPickling_P2(self):
         p = sample_tree()
         s = pickle.dumps(p, protocol=2)
         p2 = pickle.loads(s)
         
-        self.assert_(p == p2)
+        self.assertTrue(p == p2)
 
     def testPickling_P0f(self):
         p = frozen_tree()
         s = pickle.dumps(p, protocol=0)
         p2 = pickle.loads(s)
 
-        self.assert_(p == p2)
+        self.assertTrue(p == p2)
 
     def testPickling_P1f(self):
         p = frozen_tree()
         s = pickle.dumps(p, protocol=1)
         p2 = pickle.loads(s)
         
-        self.assert_(p == p2)
+        self.assertTrue(p == p2)
 
     def testPickling_P2f(self):
         p = frozen_tree()
         s = pickle.dumps(p, protocol=2)
         p2 = pickle.loads(s)
         
-        self.assert_(p2.isFrozen())
-        self.assert_(p == p2)
+        self.assertTrue(p2.isFrozen())
+        self.assertTrue(p == p2)
 
     def testPickling_Dangling_01(self):
 
@@ -92,7 +89,7 @@ class TestPickling(unittest.TestCase):
 
         p2 = pickle.loads(pickle.dumps(p, protocol=2))
 
-        self.assert_(p2 == p)
+        self.assertTrue(p2 == p)
 
     def testPickling_Dangling_02(self):
 
@@ -101,7 +98,7 @@ class TestPickling(unittest.TestCase):
 
         p2 = pickle.loads(pickle.dumps(p, protocol=2))
 
-        self.assert_(p2 == p)
+        self.assertTrue(p2 == p)
 
     def testPickling_Dangling_03(self):
 
@@ -112,7 +109,7 @@ class TestPickling(unittest.TestCase):
 
         p2 = pickle.loads(pickle.dumps(p, protocol=2))
 
-        self.assert_(p2 == p)
+        self.assertTrue(p2 == p)
 
     def testPicklingWithIteratorReferencing(self):
 
@@ -126,7 +123,7 @@ class TestPickling(unittest.TestCase):
 
         p2 = pickle.loads(pickle.dumps(p, protocol=2))
 
-        self.assert_(p == p2)
+        self.assertTrue(p == p2)
 
         self.assertRaises(RuntimeError, lambda: p.set('d', 4))
         p2.d = 4

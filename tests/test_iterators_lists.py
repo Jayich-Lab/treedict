@@ -25,7 +25,6 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import division
 
 import random, unittest, collections
 from treedict import TreeDict, getTree
@@ -52,9 +51,9 @@ class TestIteratorsLists(unittest.TestCase):
 
         p.set(**dict(items))
  
-        self.assert_(set(p.iterkeys())   == set([k for k, v in items]))
-        self.assert_(set(p.itervalues()) == set([v for k, v in items]))
-        self.assert_(set(p.iteritems())  == set(items))
+        self.assertTrue(set(p.iterkeys())   == set([k for k, v in items]))
+        self.assertTrue(set(p.itervalues()) == set([v for k, v in items]))
+        self.assertTrue(set(p.iteritems())  == set(items))
         
         
     def testIterators_02_recursive(self):
@@ -63,9 +62,9 @@ class TestIteratorsLists(unittest.TestCase):
 
         p.set(**dict(items))
 
-        self.assert_(set(p.iterkeys())   == set([k for k, v in items]))
-        self.assert_(set(p.itervalues()) == set([v for k, v in items]))
-        self.assert_(set(p.iteritems())  == set(items))
+        self.assertTrue(set(p.iterkeys())   == set([k for k, v in items]))
+        self.assertTrue(set(p.itervalues()) == set([v for k, v in items]))
+        self.assertTrue(set(p.iteritems())  == set(items))
         
 
     def testIterators_03_nonrecursive_skipbranches(self):
@@ -77,11 +76,11 @@ class TestIteratorsLists(unittest.TestCase):
         non_recursive = [(k,v) for k, v in items
                          if '.' not in k]
 
-        self.assert_(set(p.iterkeys(recursive=False)) 
+        self.assertTrue(set(p.iterkeys(recursive=False)) 
                          == set([k for k, v in non_recursive]))
-        self.assert_(set(p.itervalues(recursive=False))
+        self.assertTrue(set(p.itervalues(recursive=False))
                          == set([v for k, v in non_recursive]))
-        self.assert_(set(p.iteritems(recursive=False))
+        self.assertTrue(set(p.iteritems(recursive=False))
                          == set(non_recursive))
 
     def testIterators_04_nonrecursive_withbranches(self):
@@ -94,11 +93,11 @@ class TestIteratorsLists(unittest.TestCase):
 
         p.freeze()
 
-        self.assert_(set(p.iterkeys(recursive=False, branch_mode = "all"))
+        self.assertTrue(set(p.iterkeys(recursive=False, branch_mode = "all"))
                      == set([k for k, v in nrwb]))
-        self.assert_(set(p.itervalues(recursive=False, branch_mode = "all"))
+        self.assertTrue(set(p.itervalues(recursive=False, branch_mode = "all"))
                      == set([v for k, v in nrwb]))
-        self.assert_(set(p.iteritems(recursive=False, branch_mode = "all"))
+        self.assertTrue(set(p.iteritems(recursive=False, branch_mode = "all"))
                      == set(nrwb))
  
     def testIterators_05_branches(self):
@@ -111,9 +110,9 @@ class TestIteratorsLists(unittest.TestCase):
 
         p.freeze()
 
-        self.assert_(set(p.itervalues(False, branch_mode = "only")) == set([v for k, v in bl]))
-        self.assert_(set(p.iterkeys(False, branch_mode = "only")) == set([k for k, v in bl]))
-        self.assert_(set(p.iteritems(False, branch_mode = "only")) == set(bl))
+        self.assertTrue(set(p.itervalues(False, branch_mode = "only")) == set([v for k, v in bl]))
+        self.assertTrue(set(p.iterkeys(False, branch_mode = "only")) == set([k for k, v in bl]))
+        self.assertTrue(set(p.iteritems(False, branch_mode = "only")) == set(bl))
 
 
     def testIterators_06_large_recursive(self):
@@ -126,60 +125,60 @@ class TestIteratorsLists(unittest.TestCase):
             p.set(k, i)
 
         self.assertEqual(set(p.iterkeys()), set(kl))
-        self.assert_(set(p.itervalues()) == set(range(n)))
+        self.assertTrue(set(p.itervalues()) == set(range(n)))
 
     def _checkAllIterators(self, p, test, rid):
 
         s1 = set(l for l in p.iterkeys(*test))
-        self.assert_(s1 == set(k for k,v in rid[test]), str(s1))
+        self.assertTrue(s1 == set(k for k,v in rid[test]), str(s1))
 
         s2 = set(l for l in p.iteritems(*test))
-        self.assert_(s2 == rid[test], str(s2))
+        self.assertTrue(s2 == rid[test], str(s2))
 
         s3 = set(l for l in p.itervalues(*test))
-        self.assert_(s3 == set(v for k,v in rid[test]), str(s3))
+        self.assertTrue(s3 == set(v for k,v in rid[test]), str(s3))
 
     def testIterators_07_empty_rn(self):
         
         p = makeTDInstance()
-        self.assert_([l for l in p.iterkeys(True, "none")] == [])
-        self.assert_([l for l in p.iteritems(True, "none")] == [])
-        self.assert_([l for l in p.itervalues(True, "none")] == [])
+        self.assertTrue([l for l in p.iterkeys(True, "none")] == [])
+        self.assertTrue([l for l in p.iteritems(True, "none")] == [])
+        self.assertTrue([l for l in p.itervalues(True, "none")] == [])
 
     def testIterators_07_empty_ra(self):
         
         p = makeTDInstance()
-        self.assert_([l for l in p.iterkeys(True, "all")] == [])
-        self.assert_([l for l in p.iteritems(True, "all")] == [])
-        self.assert_([l for l in p.itervalues(True, "all")] == [])
+        self.assertTrue([l for l in p.iterkeys(True, "all")] == [])
+        self.assertTrue([l for l in p.iteritems(True, "all")] == [])
+        self.assertTrue([l for l in p.itervalues(True, "all")] == [])
 
     def testIterators_07_empty_ro(self):
         
         p = makeTDInstance()
-        self.assert_([l for l in p.iterkeys(True, "only")] == [])
-        self.assert_([l for l in p.iteritems(True, "only")] == [])
-        self.assert_([l for l in p.itervalues(True, "only")] == [])
+        self.assertTrue([l for l in p.iterkeys(True, "only")] == [])
+        self.assertTrue([l for l in p.iteritems(True, "only")] == [])
+        self.assertTrue([l for l in p.itervalues(True, "only")] == [])
 
     def testIterators_07_empty_fn(self):
         
         p = makeTDInstance()
-        self.assert_([l for l in p.iterkeys(False, "none")] == [])
-        self.assert_([l for l in p.iteritems(False, "none")] == [])
-        self.assert_([l for l in p.itervalues(False, "none")] == [])
+        self.assertTrue([l for l in p.iterkeys(False, "none")] == [])
+        self.assertTrue([l for l in p.iteritems(False, "none")] == [])
+        self.assertTrue([l for l in p.itervalues(False, "none")] == [])
 
     def testIterators_07_empty_fa(self):
         
         p = makeTDInstance()
-        self.assert_([l for l in p.iterkeys(False, "all")] == [])
-        self.assert_([l for l in p.iteritems(False, "all")] == [])
-        self.assert_([l for l in p.itervalues(False, "all")] == [])
+        self.assertTrue([l for l in p.iterkeys(False, "all")] == [])
+        self.assertTrue([l for l in p.iteritems(False, "all")] == [])
+        self.assertTrue([l for l in p.itervalues(False, "all")] == [])
 
     def testIterators_07_empty_fo(self):
         
         p = makeTDInstance()
-        self.assert_([l for l in p.iterkeys(False, "only")] == [])
-        self.assert_([l for l in p.iteritems(False, "only")] == [])
-        self.assert_([l for l in p.itervalues(False, "only")] == [])
+        self.assertTrue([l for l in p.iterkeys(False, "only")] == [])
+        self.assertTrue([l for l in p.iteritems(False, "only")] == [])
+        self.assertTrue([l for l in p.itervalues(False, "only")] == [])
 
 
     ############################################################
@@ -838,14 +837,14 @@ class TestIteratorsLists(unittest.TestCase):
                 try:
                     it.__next__()
                 except StopIteration:
-                    self.assert_(p._iteratorRefCount() <= len(iter_list))
+                    self.assertTrue(p._iteratorRefCount() <= len(iter_list))
                     del_queue.append(i)
 
             for i in sorted(del_queue, reverse=True):
                 del iter_list[i]
 
         # Now make sure that everything is cool
-        self.assert_(p._iteratorRefCount() == 0, p._iteratorRefCount())
+        self.assertTrue(p._iteratorRefCount() == 0, p._iteratorRefCount())
 
         for tm in tml:
             p.pop(tm)
@@ -857,7 +856,7 @@ class TestIteratorsLists(unittest.TestCase):
         p.a.x = 1
         p.b.c = p.a
 
-        self.assert_('c' not in p.b.keys(recursive = False, branch_mode = 'only'))
+        self.assertTrue('c' not in p.b.keys(recursive = False, branch_mode = 'only'))
 
     def testIterators_14_Links_are_not_branches_02(self):
 
@@ -865,7 +864,7 @@ class TestIteratorsLists(unittest.TestCase):
         p.a.x = 1
         p.b = p.a
 
-        self.assert_('b' not in p.keys(recursive = False, branch_mode = 'only'))
+        self.assertTrue('b' not in p.keys(recursive = False, branch_mode = 'only'))
 
     ########################################
     # The corresponding tests for values
@@ -876,9 +875,9 @@ class TestIteratorsLists(unittest.TestCase):
 
         p.set(**dict(items))
  
-        self.assert_(set(p.keys())   == set([k for k, v in items]))
-        self.assert_(set(p.values()) == set([v for k, v in items]))
-        self.assert_(set(p.items())  == set(items))
+        self.assertTrue(set(p.keys())   == set([k for k, v in items]))
+        self.assertTrue(set(p.values()) == set([v for k, v in items]))
+        self.assertTrue(set(p.items())  == set(items))
         
         
     def testItemlists_02_recursive(self):
@@ -888,9 +887,9 @@ class TestIteratorsLists(unittest.TestCase):
 
         p.set(**dict(items))
 
-        self.assert_(set(p.keys())   == set([k for k, v in items]))
-        self.assert_(set(p.values()) == set([v for k, v in items]))
-        self.assert_(set(p.items())  == set(items))
+        self.assertTrue(set(p.keys())   == set([k for k, v in items]))
+        self.assertTrue(set(p.values()) == set([v for k, v in items]))
+        self.assertTrue(set(p.items())  == set(items))
         
 
     def testItemlists_03_nonrecursive_skipbranches(self):
@@ -903,11 +902,11 @@ class TestIteratorsLists(unittest.TestCase):
         non_recursive = [(k,v) for k, v in items
                          if '.' not in k]
 
-        self.assert_(set(p.keys(recursive=False)) 
+        self.assertTrue(set(p.keys(recursive=False)) 
                          == set([k for k, v in non_recursive]))
-        self.assert_(set(p.values(recursive=False))
+        self.assertTrue(set(p.values(recursive=False))
                          == set([v for k, v in non_recursive]))
-        self.assert_(set(p.items(recursive=False))
+        self.assertTrue(set(p.items(recursive=False))
                          == set(non_recursive))
 
     def testItemlists_04_nonrecursive_withbranches(self):
@@ -921,11 +920,11 @@ class TestIteratorsLists(unittest.TestCase):
 
         p.freeze()
 
-        self.assert_(set(p.keys(recursive=False, branch_mode = "all"))
+        self.assertTrue(set(p.keys(recursive=False, branch_mode = "all"))
                      == set([k for k, v in nrwb]))
-        self.assert_(set(p.values(recursive=False, branch_mode = "all"))
+        self.assertTrue(set(p.values(recursive=False, branch_mode = "all"))
                      == set([v for k, v in nrwb]))
-        self.assert_(set(p.items(recursive=False, branch_mode = "all"))
+        self.assertTrue(set(p.items(recursive=False, branch_mode = "all"))
                      == set(nrwb))
  
     def testItemlists_05_branches(self):
@@ -939,9 +938,9 @@ class TestIteratorsLists(unittest.TestCase):
 
         p.freeze()
 
-        self.assert_(set(p.values(False, "only")) == set([v for k, v in bl]))
-        self.assert_(set(p.keys(False, "only")) == set([k for k, v in bl]))
-        self.assert_(set(p.items(False, "only")) == set(bl))
+        self.assertTrue(set(p.values(False, "only")) == set([v for k, v in bl]))
+        self.assertTrue(set(p.keys(False, "only")) == set([k for k, v in bl]))
+        self.assertTrue(set(p.items(False, "only")) == set(bl))
 
     def testItemLists_06_single_deep(self):
         depth = 500
@@ -953,61 +952,61 @@ class TestIteratorsLists(unittest.TestCase):
 
         pt.a = 1
 
-        self.assert_(p.keys() == ['.'.join(['a']*depth)])
-        self.assert_(p.values() == [1])
+        self.assertTrue(p.keys() == ['.'.join(['a']*depth)])
+        self.assertTrue(p.values() == [1])
 
     def testItemLists_07_empty_rn(self):
         
         p = makeTDInstance()
-        self.assert_(p.keys(True, "none") == [])
-        self.assert_(p.items(True, "none") == [])
-        self.assert_(p.values(True, "none") == [])
+        self.assertTrue(p.keys(True, "none") == [])
+        self.assertTrue(p.items(True, "none") == [])
+        self.assertTrue(p.values(True, "none") == [])
 
     def testItemLists_07_empty_ra(self):
         
         p = makeTDInstance()
-        self.assert_(p.keys(True, "all") == [])
-        self.assert_(p.items(True, "all") == [])
-        self.assert_(p.values(True, "all") == [])
+        self.assertTrue(p.keys(True, "all") == [])
+        self.assertTrue(p.items(True, "all") == [])
+        self.assertTrue(p.values(True, "all") == [])
 
     def testItemLists_07_empty_ro(self):
         
         p = makeTDInstance()
-        self.assert_(p.keys(True, "only") == [])
-        self.assert_(p.items(True, "only") == [])
-        self.assert_(p.values(True, "only") == [])
+        self.assertTrue(p.keys(True, "only") == [])
+        self.assertTrue(p.items(True, "only") == [])
+        self.assertTrue(p.values(True, "only") == [])
 
     def testItemLists_07_empty_fn(self):
         
         p = makeTDInstance()
-        self.assert_(p.keys(False, "none") == [])
-        self.assert_(p.items(False, "none") == [])
-        self.assert_(p.values(False, "none") == [])
+        self.assertTrue(p.keys(False, "none") == [])
+        self.assertTrue(p.items(False, "none") == [])
+        self.assertTrue(p.values(False, "none") == [])
 
     def testItemLists_07_empty_fa(self):
         
         p = makeTDInstance()
-        self.assert_(p.keys(False, "all") == [])
-        self.assert_(p.items(False, "all") == [])
-        self.assert_(p.values(False, "all") == [])
+        self.assertTrue(p.keys(False, "all") == [])
+        self.assertTrue(p.items(False, "all") == [])
+        self.assertTrue(p.values(False, "all") == [])
 
     def testItemLists_07_empty_fo(self):
         
         p = makeTDInstance()
-        self.assert_(p.keys(False, "only") == [])
-        self.assert_(p.items(False, "only") == [])
-        self.assert_(p.values(False, "only") == [])
+        self.assertTrue(p.keys(False, "only") == [])
+        self.assertTrue(p.items(False, "only") == [])
+        self.assertTrue(p.values(False, "only") == [])
 
 
     def _checkAllItemLists(self, p, test, rid):
 
-        self.assert_(set(l for l in p.keys(*test)) 
+        self.assertTrue(set(l for l in p.keys(*test)) 
                      == set(k for k,v in rid[test]))
 
-        self.assert_(set(l for l in p.items(*test))
+        self.assertTrue(set(l for l in p.items(*test))
                      == rid[test])
 
-        self.assert_(set(l for l in p.values(*test))
+        self.assertTrue(set(l for l in p.values(*test))
                      == set(v for k,v in rid[test]))
 
 

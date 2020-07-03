@@ -42,15 +42,15 @@ class TestCentralSystem(unittest.TestCase):
     def testRecall_01(self):
         name = 'testtree-%d' % common._inheritance_level
 
-        self.assert_(not treedict.treeExists(name))
+        self.assertTrue(not treedict.treeExists(name))
 
         p = treedict.getTree(name)
 
-        self.assert_(treedict.treeExists(name))
+        self.assertTrue(treedict.treeExists(name))
 
         p2 = treedict.getTree(name)
         
-        self.assert_(p is p2)
+        self.assertTrue(p is p2)
 
     def testRecall_copying(self):
         p1 = getTree('rt_r01')
@@ -60,7 +60,7 @@ class TestCentralSystem(unittest.TestCase):
 
         p2 = getTree('rt_b01')
         
-        self.assert_(p1c is not p2)
+        self.assertTrue(p1c is not p2)
 
 if __name__ == '__main__':
     unittest.main()

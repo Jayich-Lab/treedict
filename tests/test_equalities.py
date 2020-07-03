@@ -42,7 +42,7 @@ class TestEqualities(unittest.TestCase):
         t1 = sample_tree()
         t2 = sample_tree()
  
-        self.assert_(t1 == t2)
+        self.assertTrue(t1 == t2)
 
     def test_Inequality(self):
         t1 = sample_tree()
@@ -50,13 +50,13 @@ class TestEqualities(unittest.TestCase):
 
         t2.a.b.r.t = 1
 
-        self.assert_(t1 != t2)
+        self.assertTrue(t1 != t2)
 
     def test_Equalityf(self):
         t1 = frozen_tree()
         t2 = frozen_tree()
 
-        self.assert_(t1 == t2)
+        self.assertTrue(t1 == t2)
 
     def test_Equalityf2(self):
         t1 = sample_tree()
@@ -64,7 +64,7 @@ class TestEqualities(unittest.TestCase):
 
         t2.freeze()
 
-        self.assert_(t1 == t2)
+        self.assertTrue(t1 == t2)
         
 
     def test_Equalityf3(self):
@@ -74,7 +74,7 @@ class TestEqualities(unittest.TestCase):
         t1.a.b.c.d = 3212
         t2.freeze()
         
-        self.assert_(t1 != t2)
+        self.assertTrue(t1 != t2)
 
     def test_EqualitySubtree(self):
         t1 = makeTDInstance()
@@ -85,25 +85,25 @@ class TestEqualities(unittest.TestCase):
         t1.b.c.d = 1
         t2.b.c.d = 1
 
-        self.assert_(t1.b == t2.b)
-        self.assert_(t1 != t2)
+        self.assertTrue(t1.b == t2.b)
+        self.assertTrue(t1 != t2)
 
     def testEqualityEmpty(self):
-        self.assert_(makeTDInstance() == makeTDInstance())
+        self.assertTrue(makeTDInstance() == makeTDInstance())
         
     def testEqualityOneEmpty(self):
         p1 = makeTDInstance()
         p2 = makeTDInstance()
         p1.a = 1
 
-        self.assert_(p1 != p2)
+        self.assertTrue(p1 != p2)
 
     def testEqualityWithDanglingNode_01(self):
         p1 = makeTDInstance()
         p2 = makeTDInstance()
         p1.a
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
 
     def testEqualityWithDanglingNode_02(self):
@@ -112,7 +112,7 @@ class TestEqualities(unittest.TestCase):
         p1.a
         p2.a
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
     def testEqualityWithDanglingNode_03(self):
         p1 = makeTDInstance()
@@ -120,7 +120,7 @@ class TestEqualities(unittest.TestCase):
         p1.a
         p2.b
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
     def testEqualityWithDanglingNode_04(self):
         p1 = makeTDInstance()
@@ -128,14 +128,14 @@ class TestEqualities(unittest.TestCase):
         p1.a = 1
         p2.a
 
-        self.assert_(p1 != p2)
+        self.assertTrue(p1 != p2)
 
     def testEqualityWithDanglingNode_05(self):
         p1 = makeTDInstance()
         p2 = makeTDInstance()
         p1.a = p1.b
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
     def testEqualityWithDanglingNode_06(self):
         p1 = makeTDInstance()
@@ -143,7 +143,7 @@ class TestEqualities(unittest.TestCase):
         p1.a = p1.b
         p2.a = p2.b
 
-        self.assert_(p1 == p2)
+        self.assertTrue(p1 == p2)
 
 if __name__ == '__main__':
     unittest.main()

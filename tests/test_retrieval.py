@@ -42,35 +42,35 @@ class TestRetrieval(unittest.TestCase):
        
     def test_existance_01(self):
         p = sample_tree()
-        self.assert_("123" not in p)
-        self.assert_(not p.has_key("123"))
+        self.assertTrue("123" not in p)
+        self.assertTrue(not p.has_key("123"))
 
     def test_existance_02(self):
         p = sample_tree()
-        self.assert_(123 not in p)
-        self.assert_(not p.has_key(123))
+        self.assertTrue(123 not in p)
+        self.assertTrue(not p.has_key(123))
 
     def test_existance_03(self):
         p = sample_tree()
-        self.assert_(None not in p)
-        self.assert_(not p.has_key(None))
+        self.assertTrue(None not in p)
+        self.assertTrue(not p.has_key(None))
 
     def test_existance_04(self):
         p = sample_tree()
-        self.assert_("si3dkdkdmmd" not in p)
-        self.assert_(not p.has_key("si3dkdkdmmd"))
+        self.assertTrue("si3dkdkdmmd" not in p)
+        self.assertTrue(not p.has_key("si3dkdkdmmd"))
 
     def test_existance_05(self):
         p = sample_tree()
-        self.assert_(p not in p)
-        self.assert_(not p.has_key(p))
+        self.assertTrue(p not in p)
+        self.assertTrue(not p.has_key(p))
 
 
     def test_existance_06_dangling_node(self):
         p = makeTDInstance('roor')
         p.a
 
-        self.assert_('a' not in p)
+        self.assertTrue('a' not in p)
 
     def test_existance_06b_dangling_node(self):
         p = makeTDInstance('roor')
@@ -78,8 +78,8 @@ class TestRetrieval(unittest.TestCase):
         p.b = 123
         p.a
 
-        self.assert_('b' in p)
-        self.assert_('a' not in p)
+        self.assertTrue('b' in p)
+        self.assertTrue('a' not in p)
 
     def test_existance_06c_dangling_node(self):
         p = makeTDInstance('roor')
@@ -89,26 +89,26 @@ class TestRetrieval(unittest.TestCase):
         p.aa.b.c
         p.bb.c.d = None
 
-        self.assert_('a' not in p)
-        self.assert_('b' in p)
-        self.assert_('aa' not in p)
-        self.assert_('bb' in p)
+        self.assertTrue('a' not in p)
+        self.assertTrue('b' in p)
+        self.assertTrue('aa' not in p)
+        self.assertTrue('bb' in p)
 
     def testExistanceThroughLink(self):
         p = makeTDInstance()
         p.a.b.link = p.d
         p.d.v = 1
         
-        self.assert_('a.b.link.v' in p)
+        self.assertTrue('a.b.link.v' in p)
             
     def testContains_01(self):
         p1 = makeTDInstance()
         p1.a.b = 123
         
-        self.assert_('a' in p1)
-        self.assert_('a.b' in p1)
-        self.assert_('b' not in p1)
-        self.assert_('b' in p1.a)
+        self.assertTrue('a' in p1)
+        self.assertTrue('a.b' in p1)
+        self.assertTrue('b' not in p1)
+        self.assertTrue('b' in p1.a)
 
 
     def testContains_02(self):
@@ -116,9 +116,9 @@ class TestRetrieval(unittest.TestCase):
         p1.a.b = 123
         p1.d
         
-        self.assert_('a' in p1)
-        self.assert_('a.b' in p1)
-        self.assert_('d' not in p1)
+        self.assertTrue('a' in p1)
+        self.assertTrue('a.b' in p1)
+        self.assertTrue('d' not in p1)
 
     def testForwardReference(self):
         p = makeTDInstance('test')
@@ -127,16 +127,16 @@ class TestRetrieval(unittest.TestCase):
 
         p.d.e.f.g = 10
 
-        self.assert_(p.a.b.c.g == 10)
+        self.assertTrue(p.a.b.c.g == 10)
 
     def testDefaultValue_01(self):
         p = makeTDInstance()
         p.a.b = 123
 
-        self.assert_(p.get('a.b') == 123)
-        self.assert_(p.get('a.b', default_value = 1) == 123)
-        self.assert_(p.get('a.c', default_value = 1) == 1)
-        self.assert_(p.get('a.c', default_value = None) is None)        
+        self.assertTrue(p.get('a.b') == 123)
+        self.assertTrue(p.get('a.b', default_value = 1) == 123)
+        self.assertTrue(p.get('a.c', default_value = 1) == 1)
+        self.assertTrue(p.get('a.c', default_value = None) is None)        
 
 
     def testRetrieve_01_NonExistantBranchFromFrozenTree(self):
@@ -144,7 +144,7 @@ class TestRetrieval(unittest.TestCase):
         p.a.b.c = 1
         p.freeze()
 
-        self.assert_(p.a.b.c == 1)
+        self.assertTrue(p.a.b.c == 1)
 
         self.assertRaises(AttributeError, lambda: p.a.d)
 
@@ -153,7 +153,7 @@ class TestRetrieval(unittest.TestCase):
         p.a.b.c = 1
         # control; no freeze
 
-        self.assert_(p.a.b.c == 1)
+        self.assertTrue(p.a.b.c == 1)
         
         p.a.d
 
@@ -162,8 +162,8 @@ class TestRetrieval(unittest.TestCase):
         p.a.b.link = p.d
         p.d.v = 1
 
-        self.assert_(p["a.b.link.v"] == 1)
-        self.assert_(p.get("a.b.link.v") == 1)
+        self.assertTrue(p["a.b.link.v"] == 1)
+        self.assertTrue(p.get("a.b.link.v") == 1)
 
     def testRetrieve_04_ThroughMultipleLinks(self):
         p = makeTDInstance()
@@ -177,13 +177,13 @@ class TestRetrieval(unittest.TestCase):
         p.l2 = p.l3
         p.l1 = p.l2
 
-        self.assert_(p.l7.v == 1)
-        self.assert_(p.l6.v == 1)
-        self.assert_(p.l5.v == 1)
-        self.assert_(p.l4.v == 1)
-        self.assert_(p.l3.v == 1)
-        self.assert_(p.l2.v == 1)
-        self.assert_(p.l1.v == 1)
+        self.assertTrue(p.l7.v == 1)
+        self.assertTrue(p.l6.v == 1)
+        self.assertTrue(p.l5.v == 1)
+        self.assertTrue(p.l4.v == 1)
+        self.assertTrue(p.l3.v == 1)
+        self.assertTrue(p.l2.v == 1)
+        self.assertTrue(p.l1.v == 1)
 
     def testNonexistantValues_01(self):
 
@@ -217,16 +217,16 @@ class TestRetrieval(unittest.TestCase):
         t.a.y = 2
 
         # Test default
-        self.assert_(t.convertTo() == t.convertTo('nested_dict'))
+        self.assertTrue(t.convertTo() == t.convertTo('nested_dict'))
         
-        self.assert_(t.convertTo() == {'a' : {'x' : 1, 'y' : 2}, 'z' : 3})
+        self.assertTrue(t.convertTo() == {'a' : {'x' : 1, 'y' : 2}, 'z' : 3})
 
     def testConvertTo_02(self):
 
         t = random_tree(200)
         d = t.convertTo('nested_dict')
         t2 = TreeDict.fromdict(d, expand_nested = True)
-        self.assert_(t == t2)
+        self.assertTrue(t == t2)
 
     def testConvertTo_03_self_linked_01(self):
 
@@ -237,11 +237,11 @@ class TestRetrieval(unittest.TestCase):
 
         d = t.convertTo('nested_dict')
 
-        self.assert_(type(d['a']) is dict)
-        self.assert_(type(d['b']) is dict)
+        self.assertTrue(type(d['a']) is dict)
+        self.assertTrue(type(d['b']) is dict)
         
-        self.assert_(d['a']['b'] is d['b'])
-        self.assert_(d['b']['a'] is d['a'])
+        self.assertTrue(d['a']['b'] is d['b'])
+        self.assertTrue(d['b']['a'] is d['a'])
 
     def testConvertTo_03_self_linked_02(self):
 
@@ -252,7 +252,7 @@ class TestRetrieval(unittest.TestCase):
         t.attach(recursive = True)
         t2.attach(recursive = True)
 
-        self.assert_(t == t2)
+        self.assertTrue(t == t2)
 
     def testConvertTo_04_root_linked_01(self):
 
@@ -261,7 +261,7 @@ class TestRetrieval(unittest.TestCase):
 
         d = t.convertTo('nested_dict')
 
-        self.assert_(d['a'] is d)
+        self.assertTrue(d['a'] is d)
 
     def testConvertTo_04_root_linked_02(self):
 
@@ -271,8 +271,8 @@ class TestRetrieval(unittest.TestCase):
 
         d = t.convertTo('nested_dict')
 
-        self.assert_(d['a']['b']['c'] is d)
-        self.assert_(d['a']['b']['x'] is d['a'])
+        self.assertTrue(d['a']['b']['c'] is d)
+        self.assertTrue(d['a']['b']['x'] is d['a'])
 
 
     def testConvertTo_05_only_local_as_values_01(self):
@@ -287,15 +287,15 @@ class TestRetrieval(unittest.TestCase):
 
         d = t.a.convertTo('nested_dict', convert_values = False)
         
-        self.assert_(type(d['b']['d']) is dict)
-        self.assert_(type(d['b']) is dict)
-        self.assert_(d['b'] is d['b']['d'])
-        self.assert_(d['b']['c'] == 1)
+        self.assertTrue(type(d['b']['d']) is dict)
+        self.assertTrue(type(d['b']) is dict)
+        self.assertTrue(d['b'] is d['b']['d'])
+        self.assertTrue(d['b']['c'] == 1)
 
         # TreeDict values are only converted if they are a branch somewhere in the 
-        self.assert_(isinstance(d['b']['xl'], TreeDict))
-        self.assert_(isinstance(d['xl'], TreeDict))
-        self.assert_(d['xl'] is d['b']['xl'])
+        self.assertTrue(isinstance(d['b']['xl'], TreeDict))
+        self.assertTrue(isinstance(d['xl'], TreeDict))
+        self.assertTrue(d['xl'] is d['b']['xl'])
 
     def testConvertTo_05_only_local_as_values_01_control(self):
 
@@ -309,15 +309,15 @@ class TestRetrieval(unittest.TestCase):
 
         d = t.a.convertTo('nested_dict', convert_values = True)
         
-        self.assert_(type(d['b']['d']) is dict)
-        self.assert_(type(d['b']) is dict)
-        self.assert_(d['b'] is d['b']['d'])
-        self.assert_(d['b']['c'] == 1)
+        self.assertTrue(type(d['b']['d']) is dict)
+        self.assertTrue(type(d['b']) is dict)
+        self.assertTrue(d['b'] is d['b']['d'])
+        self.assertTrue(d['b']['c'] == 1)
 
         # TreeDict values are only converted if they are a branch somewhere in the 
-        self.assert_(type(d['b']['xl']) is dict)
-        self.assert_(type(d['xl']) is dict)
-        self.assert_(d['xl'] is d['b']['xl'])
+        self.assertTrue(type(d['b']['xl']) is dict)
+        self.assertTrue(type(d['xl']) is dict)
+        self.assertTrue(d['xl'] is d['b']['xl'])
 
     def testConvertTo_05_only_local_as_values_02(self):
 
@@ -343,12 +343,12 @@ class TestRetrieval(unittest.TestCase):
             return d
             
         for n in a_refs:
-            self.assert_(type(get_value(d, n)) is dict)
-            self.assert_(get_value(d, n) is d['b'])
+            self.assertTrue(type(get_value(d, n)) is dict)
+            self.assertTrue(get_value(d, n) is d['b'])
 
         for n in x_refs:
-            self.assert_(isinstance(get_value(d, n), TreeDict))
-            self.assert_(get_value(d, n) is t.x)
+            self.assertTrue(isinstance(get_value(d, n), TreeDict))
+            self.assertTrue(get_value(d, n) is t.x)
 
 
     def testConvertTo_06_prune_empty_01(self):
@@ -359,7 +359,7 @@ class TestRetrieval(unittest.TestCase):
 
         d = t.convertTo('nested_dict', prune_empty = True)
 
-        self.assert_(d == {})
+        self.assertTrue(d == {})
 
     def testConvertTo_06_prune_empty_02(self):
 
@@ -370,11 +370,11 @@ class TestRetrieval(unittest.TestCase):
 
         d = t.convertTo('nested_dict', prune_empty = False)
 
-        self.assert_(d == {'a' : {'x' : 1, 'b' : {} } } )
+        self.assertTrue(d == {'a' : {'x' : 1, 'b' : {} } } )
         
         d2 = t.convertTo('nested_dict', prune_empty = True)
 
-        self.assert_(d2 == {'a' : {'x' : 1 } } )
+        self.assertTrue(d2 == {'a' : {'x' : 1 } } )
         
 
     def testConvertTo_07_lists(self):
@@ -384,11 +384,11 @@ class TestRetrieval(unittest.TestCase):
 
         d = t.convertTo('nested_dict', expand_lists = False)
 
-        self.assert_(d == {'a' : {'b' : [1, makeTDInstance(x = 1)]}})
+        self.assertTrue(d == {'a' : {'b' : [1, makeTDInstance(x = 1)]}})
         
         d2 = t.convertTo('nested_dict', expand_lists = True)
 
-        self.assert_(d2 == {'a' : {'b' : [1, {'x' : 1} ]}})
+        self.assertTrue(d2 == {'a' : {'b' : [1, {'x' : 1} ]}})
 
     def testConvertTo_08_self_referencing_lists(self):
         t = makeTDInstance()
@@ -397,11 +397,11 @@ class TestRetrieval(unittest.TestCase):
 
         d = t.convertTo('nested_dict', expand_lists = False)
 
-        self.assert_(d['a'][0] is t)
+        self.assertTrue(d['a'][0] is t)
 
         d2 = t.convertTo('nested_dict', expand_lists = True)
 
-        self.assert_(d2['a'][0] is d2)
+        self.assertTrue(d2['a'][0] is d2)
 
 
 
